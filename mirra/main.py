@@ -107,7 +107,7 @@ try :
                     if pygame.display.mode_ok(d) :
                         self.size = self.app.size = d
                         break
-                pygame.display.set_mode(self.size, HWSURFACE | FULLSCREEN | OPENGL | DOUBLEBUF) 
+                self.screen = pygame.display.set_mode(self.size, HWSURFACE | FULLSCREEN | OPENGL | DOUBLEBUF) 
             else:
                 self.screen = pygame.display.set_mode(self.size, OPENGL | DOUBLEBUF) # HWSURFACE
 
@@ -153,7 +153,11 @@ try:
 
         def exit(self) : self.frame.Close(True) 
     
-        def __init__(self, app, frameclass, caption, pos, size, fullScreen, frameRate, smooth, mode) :
+        def __init__(self, app, frameclass, caption, pos, size, fullScreen, frameRate, smooth, mode):
+
+            if 'linux' in sys.platform : ## correct  menu weirdness
+                size = size[0] - 4, size[1] - 23
+                
             Window.__init__(self, app, caption, pos, size, fullScreen, frameRate, smooth) #, mode) # env removed
             wx.App.__init__(self, 0)
             self.app = app
@@ -163,21 +167,26 @@ try:
 
         def initWindow(self): # 2
             if self.fullScreen :
-                self.size = self.app.size = wx.GetDisplaySize() # screen resolution
-                
-            if sys.platform == 'darwin': # mac
-                self.framesize = self.size[0], self.size[1] + 25 # 22 #+15
-            elif sys.platform == 'win32' : # windows
-                self.framesize = self.size[0]+8, self.size[1] + 46 # 54 only menu
-            else : # linux an others
-                self.framesize = self.size[0], self.size[1] + 27 # 27 with menu, 54 with status bar on linux
-            # print self.size , self.app.size, self.framesize
-            self.frame = self.frameClass(self.app, None, -1, self.caption, self.pos, self.framesize) # init
+                self.size = self.app.size = wx.GetDisplaySize() # set to screen resolution
+
+            frame_size = 0,0#self.size#[0]-100, self.size[1] -100
+            canvas_size = self.size#[0], self.size[1] #- 45
+            glsize = self.size
+
+            if sys.platform == 'win32':# to correct weirdness of wx menu
+                glsize = self.size[0] - 8, self.size[1]
+                self.app.size = self.size[0] - 8, self.size[1] - 45
+            elif 'linux' in sys.platform :
+                self.app.size = self.size[0], self.size[1] - 18
             
-            if sys.platform == 'darwin' :
-                self.canvas = glcanvas.GLCanvas(self.frame, -1, self.pos, self.frame.GetClientSize())
-            else:
-                self.canvas = glcanvas.GLCanvas(self.frame, -1, self.pos, self.size) #, name=self.caption)
+            self.frame = self.frameClass(self.app, None, -1, self.caption, self.pos, frame_size) # init
+            
+##            if sys.platform == 'darwin' :
+##                self.canvas = glcanvas.GLCanvas(self.frame, -1, self.pos, self.frame.GetClientSize())
+##            else:
+##                self.canvas = glcanvas.GLCanvas(self.frame, -1, self.pos, (self.size[0]+10,self.size[1]+45)) #, name=self.caption)
+
+            self.canvas = glcanvas.GLCanvas(self.frame, -1, self.pos, canvas_size) #, name=self.caption)
 
             self.canvas.Bind(wx.EVT_PAINT, self.OnPaint)
             self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground) # dummy
@@ -187,11 +196,13 @@ try:
                 self.frame.Destroy()
             self.frame.Bind(wx.EVT_CLOSE, OnCloseWindow)
 
-            self.glsize = self.canvas.GetSize() # passed to glOrtho in engine initialisation
+            self.glsize = glsize # self.canvas.GetSize() # passed to glOrtho in engine initialisation
             self.frame.doFrame(self.canvas)
             if self.fullScreen : self.frame.ShowFullScreen(1)       
             self.SetTopWindow(self.frame)
             self.frame.Show()
+
+            print "window", self.size, "app", self.app.size, "frame", frame_size, "canvas", canvas_size, "glsize", self.glsize
 
 
         def initFrameRate(self) : # THIS IS THE LAST THING TO HAPPEN, from the first loop
@@ -326,17 +337,27 @@ class App(object):
     def readSetUpPrefs(self, f) :
         ''' read only the ones related to windows setup. others wont work yet
         '''
-        try :
-            if sys.platform == 'darwin' and utilities.run_as_app() :
-                p = os.path.join(os.getcwd(), '../../../', f)
-            else :
-                p = os.path.join(os.getcwd(), f)
-        
-            if not os.path.isfile( p ) :
-                p = f
+##        try :
+##        if sys.platform == 'darwin' and utilities.run_as_app() :
+##            p = os.path.join(os.getcwd(), '../../../', f)
+##        else :
+##            p = os.path.join(os.getcwd(), f)
 
+##        p = f
+##        if utilities.run_as_app() :
+##            if sys.platform == 'darwin' :
+##                p = os.path.join(os.getcwd(), '../../../', f)
+##            elif sys.platform == "win32":
+##                # get the exe directory and append the prefs file name
+##                p = os.path.join(sys.executable[:-len(os.path.basename(sys.executable))], f)
+##            else :
+##                print os.getcwd()
+##                p = os.path.join(os.getcwd(), f)
 
-            raw = open(p, 'rU').read()
+        abspath = utilities.getabspath(f)
+
+        if not abspath == '' :
+            raw = open(abspath, 'rU').read()
             self.jsondata = json.loads(raw)
             
             self.frameRate = self.jsondata['setup']['framerate'] 
@@ -344,25 +365,9 @@ class App(object):
             self.pos = self.jsondata['setup']['pos']  
             self.fullScreen = self.jsondata['setup']['fullscreen'] # if True you must pass your display resolution
 
-        except :
-            print 'warning : could not find a valid preference file  .........'
+##        except :
+##            print 'warning : could not find a valid preference file  .........'
 
-##    def readStartPrefs(self, f) :
-##        try :
-##            if sys.platform == 'darwin' and utilities.run_as_app() :
-##                p = os.path.join(os.getcwd(), '../../../', f)
-##            else :
-##                p = os.path.join(os.getcwd(), f)
-##                
-##            raw = open(p, 'rU').read()
-##            jsondata = json.loads(raw)
-##            print jsondata
-##
-##            self.mouseVisible = jsondata['start']['mouseVisible']
-##            self.bgColor = jsondata['start']['bgColor']
-##        except:
-##            print 'no valid preference file defining other values ........'
-            
 
     def __init__(self, smooth = 0, env = 'pygame', caption = 'mirra', pos = (0,0), size = (640, 480),
                  fullScreen = 0, frameRate = 15):
@@ -394,10 +399,17 @@ class App(object):
                 if not self.frameClass : # a wxframe was not defined by user
                     self.frameClass = utilities.WxMirraFrame # set default from basic frame in utilities
                     
-                corrected_size = self.size[0], self.size[1] #+ 18 ##  ********* correct error on Linux!!!!********
+##                if sys.platform == 'darwin': # mac
+##                    corrected_size = self.size[0], self.size[1] 
+##                elif sys.platform == 'win32' : # windows
+##                    corrected_size = self.size[0] -10, self.size[1] ## correct deformation
+##                else : # linux an others
+##                    corrected_size = self.size[0], self.size[1]
 
-                self.window = WxWindow(self, self.frameClass, self.caption, self.pos, corrected_size, self.fullScreen,
-                                       self.frameRate, self.smooth, self.mode)
+                wxwindow_size = self.size[0], self.size[1] # CHECK THIS
+                    
+                self.window = WxWindow(self, self.frameClass, self.caption, self.pos, wxwindow_size,
+                                       self.fullScreen, self.frameRate, self.smooth, self.mode)
                 self.window.initWindow()
              
         if self.env == 'pygame': # either pygame was selected or wxpython was selected but not found in the system 

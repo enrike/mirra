@@ -54,10 +54,7 @@ OS X users http://pythonmac.org/packages/
 
 (*) Under some versions of Windows you might need to install as well GLUT32.dll to get OpenGL running. This can be downloaded from http://www.xmission.com/%7Enate/glut.html . Just copy the glut32.dll into your c:\windows\system32 folder
 
-Mailing list
 
-For questions, info about updates, etc.... subscribe to Mirra mailing list here :
-http://lists.goto10.org/cgi-bin/mailman/listinfo/mirra
 
  
 

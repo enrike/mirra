@@ -8,9 +8,11 @@ class StatusBar(Rect) :
     def start(self) :
         self.text = 'status bar'
 
-    def render(self) : #,e) :
-        Rect.render(self) #, e)
-        engine.drawLine((self.rect.left, self.rect.top), (self.rect.right, self.rect.top), self.z, color=(0.2,0.2,0.2, 1))
+    def render(self) : 
+        # compile this to a list some day
+        #Rect.render(self) 
+        #engine.drawLine((self.rect.left, self.rect.top), (self.rect.right, self.rect.top), self.z,
+         #               color=(0.2,0.2,0.2, 1))
         
         engine.drawText(self.text, 10, self.y, self.z)
 
@@ -18,8 +20,8 @@ class StatusBar(Rect) :
 class Label(Text) :
     """ text box with background color and outline
     """
-    def __init__(self,st, x, y, z, font='typewriter', size=13, textcolor=(0,0,0), bgtransparent=0, bgcolor=(1,1,1),
-                 borderstroke=0, bordercolor=(0,0,0)) :
+    def __init__(self,st, x, y, z, font='typewriter', size=13, textcolor=(0,0,0), bgtransparent=0,
+                 bgcolor=(1,1,1), borderstroke=0, bordercolor=(0,0,0)) :
         Text.__init__(self,st,x,y,z,font,size,textcolor)
         self.bgtransparent = bgtransparent
         self.bgcolor = bgcolor
@@ -145,7 +147,8 @@ class Selectable:
 
 
 class SRect(Rect, Selectable) :
-    def __init__(self, x=10, y=10, z=0, width=10, height=10, color=(0,0,0,1), stroke=0, rotation=0.0) :
+    def __init__(self, x=10, y=10, z=0, width=10, height=10, color=(0,0,0,1), stroke=0,
+                 rotation=0.0) :
         Rect.__init__(self, x, y, z, width, height, color, stroke, rotation)
         Selectable.__init__(self) # required
 

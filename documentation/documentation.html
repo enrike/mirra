@@ -1,0 +1,3766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+
+  
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+
+
+  
+
+
+  
+  
+  
+  <title>Mirra documentation : www.ixi-software.net</title>
+  <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+
+<body>
+
+
+
+<p>Mirra<br>
+2D OpenGL graphics Python framework by <a href="http://www.ixi-software.net" target="_blank">www.ixi-software.net</a><br>
+  version alpha 0.3.5 - May 08.<br>
+ </p>
+  
+  
+ <p align="left"><strong>Contribute : </strong>  If you want to contribute drop us a mail. Current plans are to port some modules to C as a extension to Python, we would 
+need some help here from people with experience developing Python extensions in C.
+</p>
+      
+      
+<p>Download page : <a target="_blank" href="http://www.ixi-software.net/mirra">http://www.ixi-software.net/mirra</a><br>
+
+
+<p>&nbsp;</p>
+
+
+
+<p>Contents of documentation:<br>
+
+
+
+- <a href="#description">Description</a><br>
+
+
+
+- <a href="#license">License</a><br>
+
+
+
+- <a href="#system">System requirements</a><br>
+
+
+
+- <a href="#list">Mailing list</a><br>
+
+
+
+- <a href="#instalation">Installation</a><br>
+
+
+
+- <a href="#changes">Changes</a><br>
+
+
+
+- <a href="#tutorial">Short tutorial</a> (how to
+use, built-in classes description, tips about Mirra, event system
+description, etc...)<br>
+
+
+
+- <a href="#api">API, command reference</a><br>
+
+
+
+- <a href="#osc">OpenSoundControl module description</a><br>
+
+
+
+- <a href="#creating">Creating executables and apps under
+windows and macintosh</a><br>
+
+
+
+- <a href="#extending">Extending Mirra</a><br>
+
+
+
+- <a href="#todo">To do</a><br>
+
+
+
+- <a href="#files">Contents of Mirra</a><br>
+
+
+
+- <a href="#aknow">Aknowledgements</a><br>
+
+
+
+- <a href="#feedback">Feedback</a></p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p class="titles"> <a name="description"></a>Description:</p>
+
+
+
+<p><br>
+
+
+
+Mirra is a 2D OpenGL graphics library based on Python. Mirra allows
+for the creation of 2D interfaces, games or applications. It defines a
+set of classes to render primitive shapes (Text, Pixel, Line, Circle,
+Rect, Bitmap, BitmapPolygon), it manages rendering and user input
+(mouse and keyboard). Mirra focuses on interaction and implements an
+event managing system and classes that capture mouse events (in a way
+like Macromedia Director or Flash do).</p>
+
+
+
+<p>Mirra can send and receive OpenSoundControl messages via the
+OSC module. It allows to easily create exe and apps out of your scripts
+and also offers some basic sound features.<br>
+
+
+
+<br>
+
+
+
+Mirra can be run with the following window systems : wxPython,
+Pygame-SDL (by default).<br>
+
+
+
+Using either Pygame or WxPython gives you access to various different
+features from those libraries such as import menus, drag&amp;drop,
+basic sound features, etc... Check their websites for more info about
+what can be done with them --&gt; <a href="http://www.pygame.org" target="_blank">www.pygame.org</a>
+| <a href="http://www.wxpython.org" target="_blank">www.wxpython.org</a></p>
+
+
+
+<p>Mirra has been also thought to be used to teach basics of
+programming to students by manipulating graphics.</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p class="titles"><a name="license" id="license"></a>License
+: </p>
+
+
+
+<p><br>
+
+
+
+This library is free software; you can redistribute it and/or modify it
+under the terms of the Lesser GNU, Lesser General Public License as
+published by the Free Software Foundation. </p>
+
+
+
+<p>This library is distributed in the hope that it will be
+useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+General Public License for more details.<br>
+
+
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA<br>
+
+
+
+<br>
+
+
+
+Mirra contains small parts by others such as OSC.py by Daniel Holth
+under Lesser GPL. Licence and credits are included on those parts from
+others.</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p class="titles"><a name="system" id="system"></a>System
+requirements:</p>
+
+
+
+<p><br>
+
+
+
+Mirra works under any platform where Python runs (OS X, GNU/Linux,
+Windows, etc...).<br>
+
+
+
+You will need to have Python plus some Python libraries (PyOpenGL and
+Pygame(SDL)) installed on your machine. You might need as well wxPython
+(if you choose to use wxPython to handle the application's window
+instead of Pygame). If you want to export your scripts as exe (windows)
+or app (Mac) you will need py2exe (windows users) or pyapp (mac users).<br>
+
+
+
+- Must be there:<br>
+
+
+
+Python - <a href="http://www.python.org" target="_blank">www.python.org</a>
+<br>
+
+
+
+Pygame - <a href="http://www.pygame.org" target="_blank">www.pygame.org</a><br>
+
+
+
+PyOpenGL - <a href="http://pyopengl.sourceforge.net" target="_blank">pyopengl.sourceforge.net</a> <br>
+
+
+
+- Optional :<br>
+
+
+
+WxPython - <a href="http://www.wxpython.org" target="_blank">www.wxpython.org</a>
+<br>
+
+
+
+Py2exe (win) - <a href="http://www.py2exe.org%20" target="_blank">www.py2exe.org </a><br>
+
+
+
+Py2app (mac) - <a href="http://www.pythonmac.org/wiki/py2app%20" target="_blank">www.pythonmac.org/wiki/py2app</a></p>
+
+
+
+<p> OS X users <a href="http://pythonmac.org/packages/" target="_blank">http://pythonmac.org/packages/</a></p>
+
+
+
+<p>(*) Under some versions of Windows you might need to install
+as well GLUT32.dll to get OpenGL running. This can be downloaded from <a href="http://www.xmission.com/%7Enate/glut.html" target="_blank">http://www.xmission.com/%7Enate/glut.html</a>
+. Just copy the glut32.dll into your c:\windows\system32 folder</p>
+
+
+
+<p class="titles"><a name="list" id="list"></a>Mailing
+list</p>
+
+
+
+<p>For questions, info about updates, etc.... subscribe to Mirra
+mailing list here : <br>
+
+
+
+<a href="http://lists.goto10.org/cgi-bin/mailman/listinfo/mirra" target="_blank">http://lists.goto10.org/cgi-bin/mailman/listinfo/mirra</a></p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p class="titles"><a name="instalation" id="instalation"></a>Installation
+</p>
+
+
+
+<p>Uncompress the zip cd to the mirra folder and on the terminal type : 'python 
+  setup.py install'. Windows users can use the exe installer provided.<br>
+
+
+
+</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p class="titles"><a name="changes" id="changes"></a>Changes:</p>
+
+<p>0.3.5 : <br>
+- Engine class from graphics.py converted to module engine.py with functions this allows to avoid having to pass the reference to engine
+ on each render. Drawing functions are now accesed by importing engine. (First step towards moving this part of code into C)<br>
+- removed visible property<br>
+
+<p>0.3.2 : <br>
+- killMe() renamed to end()<br>
+  - implement properties for the Base class like rect or quad that update on the 
+  fly when you change location, etc... <br>
+  - added preferences system (check example provided)<br>
+  - removed pygame from main,py and events.py this disables self.env and should 
+  slightly improve performance on event handling <br>
+  - added end() function to App </p>
+
+<p>0.3.1 : <br>
+  - fullscreen overwrites pos and size properties to fit display's size <br>
+  - added self.width and self.height to main app. they return same as self.size[0] 
+  and self.size[1] <br>
+  - fixed data folder problem on export.py for windows. need to be checked yet 
+  on mac</p>
+
+
+<p>0.3 : <br>
+- (finally!) Fixed basic integration with wxPython<br>
+  - fixed error in some linux system with sound from externals sound engines colliding with pygame audio. From now on 
+  audio needs to be initalised manually with self.initAudio()<br>
+  - tested ChucK and SuperCollider as external sound engines.<br>
+  - fixed mayor errors with wxpython<br>
+  - fixed export.py module errors under windows<br>
+  - added startup preferences system. Check example 16 and prefs.txt files<br>
+</p>
+
+
+<p>0.2.8.2 (Piksel): <br>
+  - added rect class as property of graphical objects. This&nbsp;allows to have 
+  x,y,loc properties connected to a rect left,top,right,bottom, quad properties. 
+  <br>
+  - trying experimental 3D mode <br>
+  - added draw styles to Circles, Arcs, Lines,&nbsp;Rects and Polygons <br>
+  - changes on rendering stack system <br>
+  - added Arc drawing primitive class<br>
+  - added end() method to primitive classes<br>
+  - massive changes on render engine to optimise performance: reduced amount of 
+  code executed on the render loop, optimised loops, optimised drawing methods<br>
+  - improving documentation files to include a better API description<br>
+  - improving documentation and comments on the code </p>
+
+<p>0.2.8.1 :<br>
+- fixed errors on setup.py installer script, exe installer provided for
+windows users - fixed bugs on Bitmap instances when calling tile() and
+setImage() - Implemented support for images with transparencies -
+graphics.py cleaned, there where some old lines of code not used
+anymore. </p>
+
+
+<p>0.2.8 : <br>
+- Using py2exe / py2app now it can easily be created self executables
+(mac and win, linux users dont need this) non dependent from Python
+interpreter or library dependencies. Check 15export.py example.<br>
+
+- added mouseVisible property to App. self.mouseVisible = 0 will hide
+the mouse (but itwill keep active!) <br>
+
+- end() happends now just before quiting pygame and not after <br>
+
+- Bitmap and tmapPolygon images can be changed on the fly with
+setImage(pathtoimage) method, check examples related to textures <br>
+
+- several changes to optimise performance<br>
+
+- more extendingclasses examples added<br>
+
+- modified opengl setup suggested by tom betts to get rid of unnecesary
+coordinate and angle translations. <br>
+
+- finally fixed wx problems with refresh thanks to tip from robin dunn.
+Currently reconstructing wx support and creating examples. gui.py added
+back.<br>
+
+- fixed bug on mouse click that caused some mouse clicks not to be
+recognised properly.<br>
+
+- top app's mouseLoc implemented as a python property on pygame<br>
+
+- small changes on events.py to add mouseLoc to wx </p>
+
+
+<p>0.2.7 :<br>
+- added pong.py to examples <br>
+
+- changed resources importing method to allow mirra to work as a proper
+python library<br>
+
+
+
+- added start method to Base class to avoid having to extend __init__
+always when extending bult-in classes<br>
+
+
+
+- solved bug with start() on main.App class - added more examples
+</p>
+
+
+
+<p>0.2.6.1 :<br>
+
+
+
+- changed tabs to spaces in all files to avoid problems in some editors.<br>
+
+
+
+- bug fixed, property blend was not active.<br>
+
+
+
+- bug fixed, killMe() method was not working properly. Thanks to Dan Law.<br>
+
+
+
+- bug fixed, instances where added twice to rendering stack because of
+new z property system. Thanks to Dan Law.<br>
+
+
+
+- bug fixed, setting the loc now work on Line class. Thanks to Dan Law.</p>
+
+
+
+<p> 0.2.6 :<br>
+
+
+
+- removed setters and getters for a more pythonic Mirra. This causes
+mayor changes on the API, check 'Short tutorial' section for more
+details.<br>
+
+
+
+- added visible property to all shapes<br>
+
+
+
+- small optimisation changes and code clean up <br>
+
+
+
+- license changed to LGPL to allow for commercial use of Mirra</p>
+
+
+
+<p>0.2.5.7 :<br>
+
+
+
+- wxPython frames (with menus, status bars etc..) can be defined in a
+custom module. Before it was hard wired (just for testing) inside the
+mirra package. Check example6wxPython.py for usage<br>
+
+
+
+- render stack performance improved. Before it was a bidimensional
+array a 'bucket' for each Z depth(and they where 1000!), every time it
+rendered it had to go through each bucket rendering its shapes. Now it
+is one dimensional array where objects are shorted depending on their Z
+when created. The work is done on creation time and not every time it
+renders! . We are tying to improve...<br>
+
+
+
+- small changes to improve performance here and there ...<br>
+
+
+
+- joystick support added (only under pygame at the moment). Example
+provided.<br>
+
+
+
+- added keyUp() event to event manager. Modified KeyDown() now it only
+receives an argument with the pressed key code. (many thanks to Peter
+Goode for pointing this out)<br>
+
+
+
+- added <em>render()</em> method to MirraApp. This
+feature has been added just for completenes, it is handy to test
+drawing methods. Check example11directdrawing.py<br>
+
+
+
+- added <em>end() </em>method to MirraApp. It is called
+just before
+the application is closed. Good place to kill processes, write
+preferences to disk, etc...</p>
+
+
+
+<p>0.2.5.6 :<br>
+
+
+
+- added basic audio functionality using pygame (to be extended and
+improved over next releases).<br>
+
+
+
+- fixed bug on setColor(). Alpha was default to 0 instead of 1 causing
+shapes to disapear if no alpha was passed.<br>
+
+
+
+- fixed bug on intersection with rotated Rects.<br>
+
+
+
+- hard-coded wxPython dependency removed and coded proper system exits
+if PyOpenGL or Pygame are not found.<br>
+
+
+
+- improved documentation and examples<br>
+
+
+
+- circles <em>diameter</em> argument is now called <em>width</em>.
+</p>
+
+
+
+<p>0.2.5.5 :<br>
+
+
+
+- GLUT dropped in favor of Pygame. This way dependency from PIL library
+has been removed. <br>
+
+
+
+- support for more image file types added thanks to pygame<br>
+
+
+
+- mayor changes on graphics.py module to make class structure more
+clear and simple trying to avoid using multiple inheritance too much.<br>
+
+
+
+- added constrain to dragged shapes --&gt; <em>self.setConstrainRect(left,
+top, right, bottom)</em>. To reset do <em>self.setConstrainRect(0,0,0,0)</em><br>
+
+
+
+- All shapes have now (inherited from Base) a built it
+self.getMouseLoc() method<br>
+
+
+
+- Base class keeps now a reference to the main App instance so that all
+objects inheriting from Base can comunicate back. This makes for
+example the access to mouseLoc more easy and clear to implement.
+Because main App knows about the mouseLoc it can be asked for its value
+using that reference. A class called Test could do
+Test.app.getMouseLoc() and would get a tupple containing x and y of
+current mouseloc. The previous system was more obscure than this one.<br>
+
+
+
+<br>
+
+
+
+0.2.5.4 :<br>
+
+
+
+- bug fixed : eventhandler instance didnt receive the MirraApp instance
+so it couldnt pass back events to it.<br>
+
+
+
+- small changes in documentation and examples<br>
+
+
+
+- added to MirraApp class a method to access the mouse location
+--&gt;
+getMouseLoc() </p>
+
+
+
+<p>0.2.5 : <br>
+
+
+
+- optimised bitmap handling system (images are stored as static
+property of graphics engine class)<br>
+
+
+
+- WxPython and Pygame support added.<br>
+
+
+
+- new examples added and documentation improved<br>
+
+
+
+- small changes on rendering method to improve performance and some z
+location errors.<br>
+
+
+
+- bug fixed : when shape.setInteractiveState(1) and draggged there was
+a weird behavior<br>
+
+
+
+- Text class implements now setText(string) and getText()<br>
+
+
+
+- Text class implements default GLUT fonts <br>
+
+
+
+- Rects have now height and width allowing to create rectangles as well
+as squares<br>
+
+
+
+- small changes and cleanup on utilities.py module <br>
+
+
+
+- Base object implents :<br>
+
+
+
+self.mouseLoc --&gt; gives access to mouse location <br>
+
+
+
+self.blend = float --&gt; sets alpha component of instance's color<br>
+
+
+
+self.blend --&gt; returns alpha component of instance's color<br>
+
+
+
+<br>
+
+
+
+0.2.2 : solved flickering when two shapes are in the same z location<br>
+
+
+
+0.2.1 : solved bug with flipH() and flipV() in Rects</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p class="titles"><a name="tutorial" id="tutorial"></a>Short tutorial :</p>
+
+
+
+<p>:: How to use it? :: </p>
+
+
+
+<p>The <em>mirratemplate.py</em> module provides a
+template for your application. The simplest way to start working is to
+code using this template as a base. Basically you need to create a .py
+module where there is a class that extends main.App (like MirraApp
+does). Check examples 1 to 4<br>
+
+
+
+<br>
+
+
+
+By intialising this app class, the main window and rendering system
+will be initialised according to the parameters you pass to the
+MirraApp during setUp() (environment, caption, size, position,
+framerate, fullscreen).
+
+
+
+<p>You will be able to use several methods inherited from
+main.App where you can place code such as start(), step() and several
+mouse and joystick events. By extending those methods you can create
+complex applications. There are several system properties that can be
+set or checked on the fly such as trails, mouseVisible and bgColor.
+Primitive drawing classes can be used to draw shapes that can be moved,
+clicked and dragged. By extending those classes you will be able to
+create complex graphics and behaviors.<br>
+
+
+
+<br>
+
+
+
+It is a good idea to place images, sounds, etc... in the 'data' folder
+as they get automatically packed when you export you script as exe or
+app. Mirra supports for many image file types, SDL is used to load
+media.<br>
+
+
+
+<br>
+
+
+
+To run your code just run with the Python interpreter the file you are
+working on. On windows just double click your .py file. Under unix
+systems (GNU/linux, OSX ..) you would type on the console something
+like 'python mirratemplate.py' (windows users can also run it from
+command line, this will actually give better feedback about errors as
+the console wont quit after the end of the script).<br>
+
+
+
+<br>
+
+
+
+Several other examples are available in the main folder for you to
+learn using the basics of this framework. They are named '01<em>example.py</em>',
+'02<em>example_events.py</em>', '<em>example_osc.py</em>'
+and so on.</p>
+
+
+
+<p>Mirra allows to create self executables non dependent from
+Python interpreter and dependencies by using the py2app and py2exe, check example
+15export_app.py or the section of this file 'Creating executables for
+windows or mac</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p>:: Some tips about Mirra ::</p>
+
+
+<p>- About MirraApp:<br>
+
+
+
+MirraApp is the application class, lets say it is the place where
+everything lives. It can set and get few properties of the main window
+(described above) like :<br>
+
+
+
+self.trails --&gt; boolean&nbsp;&nbsp; <br>
+
+
+
+self.bgColor --&gt; r,g,b&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; </p>
+
+
+
+<p>About all graphical classes :<br>
+
+
+
+All graphical classes (Rect, Circle, ...) are subclass of Base class.
+This means that they inherit few handy methods and properties from it,
+like <em>loc, z, color</em> or <em>app</em>
+(which is a reference to the top application instance, this allows to
+comunicate back to the application for example to ask for the mouse
+location or the background color and size of the window). Check the
+description of Base class above to see the methods available for all
+graphical classes. </p>
+
+
+
+<p>- Instanciating built-in classes in MirraApp:<br>
+
+
+
+Built-in classes' instances are automagically added to the rendering
+stack as soon as you instanciate them. This means that the rendering is
+done under the hood and that you should not, in principle, worry about
+it too much. This is why just by calling Text('hi there', 100, 100)
+renders that text without us having to save a reference to the instance
+of the Text class initialised. A reference to that particular object
+has been added to the rendering stack, under the hood, as soon as it
+has been created. The graphic engine uses this reference to render the
+instance in the right place and order. Iif you want to know more about
+this check the <em>render() </em>function
+in engine.py module. </p>
+
+
+
+<p>So, what if we want to manipulate the location or some other
+property of the instance? We should keep as well a reference to that
+instance. To do this we should save it, for example, as a property of
+the MirraApp or some other class where this instance should live. For
+example in start() we would create a property self.label = Text('number
+5', 100, 100). The reference would allow us to change the loc of the
+instance from mainApp's step() method by calling the instance's
+internal method self.label.loc = x,y. Check the examples provided. We
+could as well save it as a global variable in our working module.</p>
+
+
+
+<p>- Extending built-in classes: <br>
+
+
+
+Check example 7 to 8, and others like snow.py, orbit.py etc... <br>
+
+
+
+If you want to make something more complex that just displaying some
+basic shapes, like for example you want to have objects that move and
+bounce agains window limits, you will need to extend the basic classes
+to define methods that calculate movement and collision against walls. </p>
+
+
+
+<p>- Event system description : <br>
+
+
+
+Events are controlled by the window system(wxPython or Pygame(SDL)) and
+binded to functions in the eventListener instance (in events.py) whose
+instance lives in the main App. The event listener asks the graphics
+engine for intersections between mouse and some clickable/draggable
+graphical object on the graphical stack of the engine. If intersection
+is true then it passes the event to the intersected object, if none is
+intersected it tries to pass the event up to the main App you are
+working in (usually MirraApp). In case you dont define those events on
+the main app then it just skips the event.</p>
+
+
+
+<p>Mouse location can be accessed from the main App as property
+self.mouseLoc. It is a tuple containing the current x and y loc of the
+mouse. Because all graphical objects extend Base they can access the
+mouse location by calling self.app.mouseLoc<br>
+
+
+
+<br>
+
+
+
+questions or suggestions are welcome to info@ixi-software.net or to the
+Mirra mailing list</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p class="titles"><a name="api" id="api"></a>API
+- command reference:</p>
+
+
+
+<p>This API reference describes the main public commands you can
+use to manipulate Mirra. It is structured in three main areas (main app
+class, graphic primitive classes and utilities).</p>
+
+
+
+<p>:: Main app class (defined in main.py)::</p>
+
+
+
+<p> Here there is a complete description of your MirraApp class
+where most of your code will live</p>
+
+
+
+<p>&gt; General system functions. Check <em>mirratemplate.py</em>
+<br>
+
+
+
+</p>
+
+
+
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
+
+
+
+  <tbody>
+
+
+
+    <tr>
+
+
+
+      <td valign="top" width="15%"><span class="code">start(self)</span></td>
+
+
+
+      <td width="85%"># just when starting the app. Good
+place to initialise variables, objects or general stuff</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">step(self)</span></td>
+
+
+
+      <td># called every frame, frequency depends on frameRate
+set on setUp()</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">end(self)</span></td>
+
+
+
+      <td># called just before killing the application</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">setUp(self)</span></td>
+
+
+
+      <td># In setUp we initialise the whole application and set
+the main application's parameters <br>
+
+
+
+*Note*: fullScreen=1 overwrites size and pos<br>
+
+
+
+      </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">render()</td>
+
+
+
+      <td>
+      
+      
+      <p># we can extend this method to draw directly by using
+the engine's module drawing functions or by coding directly
+OpenGL. For example<br>
+
+
+
+render(self) : engine.drawLine( (100,100), (20,35), color=(1,0,0,0.5)) <br>
+
+
+
+Check example 11directdraw.py . Note that Z position does not work in
+this case <br>
+
+
+
+      </p>
+
+
+
+      </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">&nbsp;</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">&nbsp;</td>
+
+
+
+      <td>&gt; Environment properties that are defined during setUp()</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">&nbsp;</td>
+
+
+
+      <td>
+      
+      
+      <table border="0" cellpadding="0" cellspacing="1" width="100%">
+          <tbody>
+
+            <tr> 
+              <td valign="top"><span class="code">self.caption</span></td>
+              <td># sets window's caption name - string . </td>
+            </tr>
+            <tr> 
+              <td valign="top"><span class="code">self.size</span></td>
+              <td># window's size. width and height. </td>
+            </tr>
+            <tr> 
+              <td valign="top"><span class="code">self.pos</span></td>
+              <td># sets window's top-left corner's location -- x, y</td>
+            </tr>
+            <tr> 
+              <td valign="top"><span class="code">self.fullScreen</span></td>
+              <td># sets window fullscreen / non fullscreen -- boolean</td>
+            </tr>
+            <tr> 
+              <td valign="top"><span class="code">self.frameRate</span></td>
+              <td># sets graphics refresh framerate -- integer</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+      </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">&nbsp;</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">&nbsp;</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">&nbsp;</td>
+
+
+
+      <td>
+      
+      
+      <table border="0" cellpadding="0" cellspacing="1" width="100%">
+
+
+
+        <tbody>
+
+
+
+          <tr>
+
+
+
+            <td valign="top" width="21%"><span class="code">self.wxFrameClass</span> </td>
+
+
+
+            <td width="79%"># pass frame class to Mirra so
+that it can create it inside the main window - reference to a class
+like for example gui.MyFrame. Remember you have to import whatever
+module your wx frame is defined on before (only if you want a wxframe
+of course)</td>
+
+
+
+          </tr>
+
+
+
+        
+        
+        </tbody>
+      
+      
+      </table>
+
+
+
+      </td>
+
+
+
+    </tr>
+
+
+
+  
+  
+  </tbody>
+</table>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p>&gt; Mouse and keyboard events functions- Read 'Event system description' paragraph 
+  in this file for more info. Check 03.events.py</p>
+
+
+
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
+
+
+
+  <tbody>
+
+
+
+    <tr>
+
+
+
+      <td width="27%"><span class="code">mouseDown(self,
+x,y)</span></td>
+
+
+
+      <td width="73%"># x and y is the mouse coordinates
+at the moment when the event is triggered</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">mouseUp(self,
+x,y)&nbsp;</span></td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">mouseDragged(self,
+x,y)&nbsp;</span></td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">rightMouseDown(self,
+x,y)&nbsp;</span></td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">rightMouseUp(self, x,y)</span></td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">keyDown(self, key)</span></td>
+
+
+
+      <td># key arg is the key being pressed : Check <a href="#key">key reference</a> for more details</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">keyUp(self, key)</span></td>
+
+
+
+      <td># key arg is the key being released&nbsp;: Check <a href="#key">key reference</a> for more details</td>
+
+
+
+    </tr>
+
+
+
+  
+  
+  </tbody>
+</table>
+
+
+
+<p>&gt; Joystick events, (not working if using wxPython on
+OSX, otherwise is runs fine). Check 12joystick.py</p>
+
+
+
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
+
+
+
+  <tbody>
+
+
+
+    <tr>
+
+
+
+      <td>(more joystick/gamepad events to be implemented)</td>
+
+
+
+      <td></td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td width="42%"><span class="code">joyAxisMotion(self,
+joystick, index, value)</span></td>
+
+
+
+      <td width="58%">&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">joyBallMotion(self,
+joystick, index, value)</span></td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">joyHatMotion(self,
+joystick, index, value)</span></td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">joyButtonDown(self,
+joystick, button)</span></td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td> <span class="code">joyButtonUp(self,
+joystick, button)</span></td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+  
+  
+  </tbody>
+</table>
+
+
+
+<p> &gt; General properties of the sytem that cab be get and/or set at any point</p>
+
+
+
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
+  <tbody>
+    <tr> 
+      <td># can only be get :</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><span class="code">self.width</span></td>
+      <td># returns windows width, same as size[0] --&gt; int</td>
+    </tr>
+    <tr> 
+      <td valign="top"><span class="code">self.height</span></td>
+      <td># returns windows height, same as size[1] --&gt; int</td>
+    </tr>
+    <tr> 
+      <td># can be set and get :</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr> 
+      <td><span class="code">self.mouseVisible = 1</span> </td>
+      <td># mouse visibility on/off --&gt; boolean</td>
+    </tr>
+    <tr> 
+      <td><span class="code">self.bgColor = r,g,b,a</span></td>
+      <td># window's background color --&gt; rgba tuple like (0.1, 0, 0, 0.04)</td>
+    </tr>
+    <tr> 
+      <td width="21%"><span class="code">self.trails = b&nbsp;&nbsp;</span> </td>
+      <td width="79%"> # trails on or off --&gt; boolean</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<p>&gt; General SDL audio system functions that can be called. Check example 09audio.py</p>
+
+
+
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
+
+
+
+  <tbody>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">Audio methods :</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+    <tr>
+
+
+
+      <td class="code" valign="top">self.initAudio()</td>
+
+
+
+      <td># starts SDL audio</td>
+
+
+
+    </tr>
+
+    <tr>
+
+
+
+      <td class="code" valign="top">self.playSound(self, path, volume=1.0, pan=0.5, 
+        channel=0, loop=0, maxtime=-1)</td>
+
+
+
+      <td># plays a sound </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top" width="44%">self.findFreeChannel(self)</td>
+
+
+
+      <td width="56%"># returns a free channel in the mixer</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">setVolume(self,channel, volume=1, pan=0.5</td>
+
+
+
+      <td># sets volume and pan of given chanel</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top"> self.preLoadSound(self, path) </td>
+
+
+
+      <td># preload a sound file</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">self.getVolume(self,channel)</td>
+
+
+
+      <td># get channel volume</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">self.stopSound(self,channel)</td>
+
+
+
+      <td># stop channel</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">self.pauseAll(self)</td>
+
+
+
+      <td># pause all channels</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">self.unpauseAll(self)</td>
+
+
+
+      <td># resume all channels</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">self.stopAll(self)</td>
+
+
+
+      <td># stop all channels</td>
+
+
+
+    </tr>
+
+
+
+  
+  
+  </tbody>
+</table>
+
+
+
+<p>&gt; Preferences related functions. Check example 16preferences.py and prefs.txt</p>
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
+  <tbody>
+      <tr> 
+      <td class="code" valign="top">self.readSetUpPrefs(self, aprefsfile)</td>
+      <td># executes lines in file UNTIL 'others' keyword</td>
+    </tr>
+    <tr> 
+      <td class="code" valign="top">self.readOtherPrefs(self, aprefsfile)</td>
+      <td># executes lines in file AFTER 'others' keyword</td>
+    </tr>
+  </tbody>
+</table>
+<p>The basic idea is that there is a txt file with python commands. Those commands 
+  are executed by python<br>
+  when readSetUpPrefs() or readOtherPrefs() are called. We need to keep setUp 
+  preferences separated from other<br>
+  preferences by a comment line with 'others' keyword on it. Check prefs.txt for 
+  format example. Each of the functions will read its part of the file. SetUp 
+  prefs need to be executed from setUp() function and others can be executed and 
+  any time after setUp, for example start() is a good moment.</p>
+<p>This system can be used to set an initial state for your application, this 
+  only makes sense if you have created a exe or app with py2exe and py2app or 
+  if you dont want to edit the initial values for your variables in the source. 
+  Otherwise you would do the same result by editing the source. This was developed 
+  for situations where source can not be edited.</p>
+<p>&nbsp;</p>
+
+
+
+<p><br>
+
+
+
+::: Description of graphic primitive classes defined by Mirra (defined
+in graphics.py module) ::: </p>
+
+
+
+<p>Primitive graphic classes available currently are: <span class="code">Text, Pixel, Line, Rect, Polygon, Circle,
+Bitmap, BitmapPolygon</span></p>
+
+
+
+<p>&gt; Primitive classes details (defined in graphics.py).
+Check 01allclasses.py and 01allclasses2.py <br>
+
+
+
+<br>
+
+
+
+<strong>Text:</strong><br>
+
+
+
+Draws a text given x,y,z, font family, font size, and color. <br>
+
+
+
+args : string, x, y, z, font, size, color<br>
+
+
+
+example :<span class="code"> Text("hello world", 10, 100,
+1, 'helvetica', 10, (0.1, 1, 0.3, 0.8))</span><br>
+
+
+
+NOTE - available fonts ans sizes are:<br>
+
+
+
+&gt; typewriter 13 and 15<br>
+
+
+
+&gt; timesroman 10 and 24<br>
+
+
+
+&gt; helvetica 10, 12 and 18<br>
+
+
+
+other values would cause an error.<br>
+
+
+
+Text class also implements :<br>
+
+
+
+<span class="code">text = string</span> # to update
+displayed string on the fly<br>
+
+
+
+example: myLabel.text = 'bye world'<br>
+
+
+
+<br>
+
+
+
+<strong>Pixel:</strong><br>
+
+
+
+<span class="code">Pixel(x, y, z, color) </span><br>
+
+
+
+Draws a pixel given x,y,z and color.<br>
+
+
+
+example :<span class="code"> </span>self.pixel =
+Pixel(x=12, y=100, z=900, color=(1,0,0,0.5))<br>
+
+
+
+<br>
+
+
+
+<strong>Line:</strong> <br>
+
+
+
+<span class="code">Line(a, b, z, color, stroke, rotation) </span><br>
+
+
+
+example : self.line = Line( a=(1,1), b=(100,100), z=20,
+color=(0.2,0,0,1), stroke=10, rotation=45, style=0)<br>
+
+
+
+Draws a line given the begining and end point (as tupples with x,y),
+color (tupple) and stroke (thickness of line) and rotation. style is a
+value like 0xF0F0 (dashed line), 0xF00F (long dashed line) or 0x8888
+(dotted lines)<br>
+
+
+
+<br>
+
+
+
+<strong>Polygon:</strong><br>
+
+
+
+<span class="code">Polygon(vertexarray, z, color, stroke,
+rotation) </span><br>
+
+
+
+Polygon described with an array that contains tuple points of each
+vertex.<br>
+
+
+
+example : self.poly = Polygon(vertexarray=[(0, 0), (29, 100), (30,
+200)], z=100, color=(0,0.3,0.1,1), stroke=0, rotation=23, style=0)<br>
+
+
+
+style is a value like 0xF0F0 (dashed line), 0xF00F (long dashed line)
+or 0x8888 (dotted lines)<br>
+
+
+
+<br>
+
+
+
+<strong>Rect:</strong><br>
+
+
+
+<span class="code">Rect(x, y, z, width, height, color,
+stroke, rotation) </span><br>
+
+
+
+example : self.rect = Rect(x=10, y=100, z=1, width=40, height=60,
+color=(0.5,0.5,0.5,1), stroke=0, rotation=90, style=0) <br>
+
+
+
+style is a value like 0xF0F0 (dashed line), 0xF00F (long dashed line)
+or 0x8888 (dotted lines) <br>
+
+
+
+<br>
+
+
+
+<strong>Circle:</strong><br>
+
+
+
+<span class="code">Circle(x, y, z, width, color, stroke,
+rotation) </span><br>
+
+
+
+example : self.circle = Circle(x=20, y=100, z=1, width=300,
+color=(1,1,0,0.3), stroke=5, rotation=0, style=GLU_FILL)<br>
+
+
+
+style choices are : GLU_LINE, GLU_FILL, GLU_SILHOUETTE, GLU_POINT)<br>
+
+
+
+<br>
+
+
+
+<strong>Arc:</strong><br>
+
+
+
+<span class="code">Arc(x, y, z, width, color, stroke,
+rotation) </span><br>
+
+
+
+example : self.arc = Arc(x=10, y=10, z=0, radius=1, start=0, sweep=1,
+color=(0,0,0,1), stroke=0, rotation=0.0, style=GLU_FILL)<br>
+
+
+
+start is an angle, sweep is arc lenght in angles *anticlockwise* <br>
+
+
+
+style choices are : GLU_LINE, GLU_FILL, GLU_SILHOUETTE, GLU_POINT) <br>
+
+
+
+<br>
+
+
+
+<strong>Bitmap:</strong> <br>
+
+
+
+<span class="code">Bitmap(file, x, y, z, width, height,
+rotation) </span><br>
+
+
+
+example : self.bmp = Bitmap(file='data/pict.bmp', x=300, y=500, z=3,
+width=300, height=250, rotation=45)<br>
+
+
+
+Bitmaps respond as well to these methods:<br>
+
+
+
+<span class="code">flipH()</span><strong><br>
+
+
+
+</strong><span class="code">flipV()</span><br>
+
+
+
+Both flip commands cause the image of the <em>image of the shape</em>
+to be flipped (*but not the shape itself!!*) <br>
+
+
+
+<span class="code">tile(int)</span><br>
+
+
+
+example : mybitmap.tile(10)<br>
+
+
+
+This modifies property called 'texCoord' which defines the way the
+image is mapped into the rect or polygon. Check the example2textures.py
+and example2textures2.pymodule. <br>
+
+
+
+<span class="code">setImage(self, path) <br>
+
+
+
+</span>example : mybitmap.setIMage("data/image.bmp")<br>
+
+
+
+changes the image of the shape for a new one, path is relative </p>
+
+
+
+<p><strong>BitmapPolygon:</strong><br>
+
+
+
+<span class="code">BitmapPolygon(file, vertexarray, z,
+rotation) </span><br>
+
+
+
+Described with an array that contains tuple points of each vertex.<br>
+
+
+
+args : file, vertexarray, z, rotation<br>
+
+
+
+example : self.bmpoly = BitmapPolygon(file='data/pict.bmp',
+vertexarray=[(0, 0), (29, 100), (30, 200)], z=2, rotation=0)<br>
+
+
+
+BitmapPolygon also implements :<br>
+
+
+
+<span class="code">tile(self, int)</span><br>
+
+
+
+example : mybitmap.tile(10)<br>
+
+
+
+This modifies property called 'texCoord' which defines the way the
+image is mapped into the rect or polygon. Check the tiled() example at
+the sometests.py module. <br>
+
+
+
+<span class="code">setImage(self, path)<br>
+
+
+
+</span>example : &nbsp;mybitmap.setImage("data/image.bmp")<br>
+
+
+
+changes the image of the shape for a new one, path is relative </p>
+
+
+
+<p>* Note for Bitmaps and BitmapPolygon *<br>
+
+
+
+Both can receive an extra argument <em>texCoord </em>which
+is an array of tupples that defines how the image is mapped into the
+shape and it can be used to cause the image to be twisted. It is
+defaulted to <em>[(0, 1), (1, 1), (1, 0), (0, 0)] </em>.
+Check out some tutorial about OpenGL textures if you want to learn
+about this.</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p>&gt; ALL of primitive graphic classes inherit from <strong>Base</strong>
+class the following <strong>PROPERTIES</strong>:</p>
+
+
+
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
+
+
+
+  <tbody>
+
+
+
+    <tr>
+
+
+
+      <td width="21%"># can be get :</td>
+
+
+
+      <td width="79%">&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">app
+      </span></td>
+
+
+
+      <td><strong># </strong>reference to the top
+app (MirraApp or whatever you name it). It can be used to access
+variables from mirraApp such as mouseLoc, trails, bgcolor or any other
+that you might define.</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">mouseLoc
+      </span></td>
+
+
+
+      <td># returns current mouse location --&gt; x,y</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"># can be set and get :</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">z </span>
+      </td>
+
+
+
+      <td># z depth buffer position. Below 0 shapes are not
+visible - integer</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">loc
+      </span></td>
+
+
+
+      <td># loc of instance - x,y</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">color</span>
+      </td>
+
+
+
+      <td># color of shape (alpha is default to 1) - r,g,b,a all
+must be float between 0 to 1 </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">blend</span>
+      </td>
+
+
+
+      <td># alpha component of color - float between 0 to 1 value</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">rotation</span>
+      </td>
+
+
+
+      <td># instances rotation clockwise in degrees - integer or
+float</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">stroke
+      </span></td>
+
+
+
+      <td># instances drawing thinkness, 0 for filled shapes.
+Bitmap and BitmapPolygon dont use it. - integer</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">interactiveState
+      </span> </td>
+
+
+
+      <td># instance's interaction level to be : 2 (draggable), 1
+(clickable) or 0 (no interactive). </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">constrainRect</span></td>
+
+
+
+      <td># constrains an object being dragged within the given
+rect. Check example10constrain.py - left,top,right,bottom</td>
+
+
+
+    </tr>
+
+
+
+
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">clicked</span>
+      </td>
+
+
+
+      <td># am i clicked by the mouse? - boolean</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">textID</span>
+      </td>
+
+
+
+      <td># Only Bitmap and BitmatPolygon. </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td><span class="code">rect</span></td>
+
+
+
+      <td># left, top, right, bottom position. Connected to x,y
+and loc. You can do self.square.rect.left +=100<br>
+
+
+
+Does not work ok when rotation is on - To be changed soon</td>
+
+
+
+    </tr>
+
+
+
+    
+
+    <tr>
+
+
+
+      <td>-- to be added soon:</td>
+
+
+
+      <td></td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td>left, top,right, bottom</td>
+
+
+
+      <td></td>
+
+
+
+    </tr>
+
+    <tr>
+
+      <td>quad</td>
+
+      <td># lefttop, righttop, bottomright, bottomleft locations
+of rect</td>
+
+    </tr>
+
+
+
+  
+  
+  </tbody>
+</table>
+
+
+
+<p>For more details check Base class at graphics.py</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p>&gt; ALL of primitive graphic classes inherit from <strong>Base</strong>
+class the following <strong>METHODS</strong>:</p>
+
+
+
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
+
+
+
+  <tbody>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">start(self)
+      </span><strong>&nbsp;</strong>
+&nbsp;&nbsp;</td>
+
+
+
+      <td># just after __init__ </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">intersects(self,
+x,y)<strong></strong></span><strong></strong></td>
+
+
+
+      <td># check intersection of shape with given x,y. Used for
+mouse events --&gt; boolean</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">step(self)</span>
+&nbsp;&nbsp;</td>
+
+
+
+      <td># called every frame, depends on fps set on main app
+setup.</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">end(self)</span><strong>
+      </strong></td>
+
+
+
+      <td># removes the instance from rendering stack.</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">mouseDown(self, x,y)</span><strong></strong></td>
+
+
+
+      <td># clicked by mouse</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">mouseUp(self,
+x,y)&nbsp;</span>&nbsp;</td>
+
+
+
+      <td># unclicked by mouse</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">rightMouseDown(self,
+x,y)</span></td>
+
+
+
+      <td>... </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top"><span class="code">rightMouseUp(self,
+x,y)</span>&nbsp;&nbsp;</td>
+
+
+
+      <td>...</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top" width="24%"><span class="code">mouseDragged(self, x,y)</span></td>
+
+
+
+      <td width="76%">...</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top"> render() </td>
+
+
+
+      <td> # render method called from engine following the right
+rendering order. Each shape has a different render method which can be
+extended (using render drawing methods from engine module or pure OpenGL) to
+allow for more complex shapes to be drawn. </td>
+
+
+
+    </tr>
+
+
+
+  
+  
+  </tbody>
+</table>
+
+
+
+<p>For more details check Base class at graphics.py </p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p><br>
+
+
+
+::: Utilities (defined in utilities.py) ::: </p>
+
+
+
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
+
+
+
+  <tbody>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">path(res = '')</td>
+
+
+
+      <td>returns the absolute path to a file or folder passed as
+argument -&gt; string</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">&nbsp;</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">Some random utilities :</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top" width="31%">randint(min,
+max)</td>
+
+
+
+      <td width="69%">returns random integer between min
+and max -&gt; int</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">random()</td>
+
+
+
+      <td>returns random float between 0 and 1 -&gt; float
+between 0 and 1</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">randRGB()</td>
+
+
+
+      <td>returns random RGB tuple color -&gt; tuple r,g,b</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">randRGBA()</td>
+
+
+
+      <td>returns random RGBA tuple color -&gt; tuple r,g,b,a</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">randPoint(l, t,
+r, b)</td>
+
+
+
+      <td>returns a random point within a given a rect or four
+limits-&gt; x, y<br>
+
+
+
+It can receive four limits (left, top, right, bottom)</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top"> choice(seq)</td>
+
+
+
+      <td>choose one in a list with few items -&gt; whatever
+the choosen item is<br>
+
+
+
+receives a sequence of items</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">&nbsp;</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">Some rect and quad utilities :</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">calcPolygonRect(pointArray)</td>
+
+
+
+      <td>receives a point list and returns the rect that
+contains them as a tupple -&gt; tuple left, top, right, bottom</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">calcRectCenter(l,t,r,b)</td>
+
+
+
+      <td>returns rect center point -&gt; x,y<br>
+
+
+
+receives left, top, right and bottom of a rect</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">calcRectRect(x,
+y, width, height)</td>
+
+
+
+      <td>calcs surrounding rect of a rectangular shape -&gt;
+tuple left, top, right, bottom<br>
+
+
+
+receives x, y , width, height</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">calcRectQuad(x,
+y, width, height)</td>
+
+
+
+      <td>returns a list containing the vertex points of a rect
+providing its<br>
+
+
+
+x,y, width and height -&gt; list [lefttop, righttop, rightbottom,
+leftbottom]<br>
+
+
+
+receives x, y , width, height </td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">constrainToRect(x,y,
+r)</td>
+
+
+
+      <td>constrains a given x,y location to a given rect
+-&gt; tupple x,y<br>
+
+
+
+receives x, y , rect as a tupple</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">&nbsp;</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td valign="top">Some intersection utilities :</td>
+
+
+
+      <td>&nbsp;</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">pointInLine(p,
+linePoints)</td>
+
+
+
+      <td>TO BE DONE -&gt; returns false</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">pointInRect(p,
+r)</td>
+
+
+
+      <td>returns true if a point is inside a rect. rect is
+(left, top, right, bottom) -&gt; Boolean<br>
+
+
+
+receives a tuple (x,y) and a tuple(left,top,right,bottom)</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">pointInCircle(p,
+p2, r)</td>
+
+
+
+      <td>if distance from point to circle center is smaller than
+radius then it must be inside -&gt; Boolean<br>
+
+
+
+receives two tuples (x,y) and the radius of the circle</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">pointInPoly(point,
+pointsList)</td>
+
+
+
+      <td>Return True if point is contained in polygon (defined
+by given list of points.) -&gt; Boolean<br>
+
+
+
+receives a tuple (x,y) and a sequence of tuple locations
+((x,y),(x,y),(x,y).(x,y))</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">distance(p1, p2)</td>
+
+
+
+      <td>Return the distance between two points, which may be
+given as (x,y) tuples or as complex numbers. -&gt; float<br>
+
+
+
+receives two tuples (x,y)</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">rotPoint(point,
+axis, ang)</td>
+
+
+
+      <td>Orbit. calcs the new loc for a point that rotates a
+given num of degrees around an axis point, +clockwise, -anticlockwise
+-&gt; tuple x,y<br>
+
+
+
+receives a tuple (x,y), tuple (x,y), and ang in degrees</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top"> reverseAng(ang)</td>
+
+
+
+      <td>converts angles from OpenGL anticlockwise to clockwise
+and the other way around -&gt; int ang in degrees<br>
+
+
+
+receives ang in degrees</td>
+
+
+
+    </tr>
+
+
+
+    <tr>
+
+
+
+      <td class="code" valign="top">getAng(p1, p2)</td>
+
+
+
+      <td>
+      
+      
+      <p>returns the ang in degrees between two points
+*clockwise!* -&gt; int ang in degrees<br>
+
+
+
+receives two tuple locs (x,y)</p>
+
+
+
+      </td>
+
+
+
+    </tr>
+
+
+
+  
+  
+  </tbody>
+</table>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p>::: Drawing methods from engine class (graphics.py) :::<br>
+
+
+
+Check example 11directdrawing.py, 04extendingclasses4.py and
+04extendingclasses5.py<br>
+
+
+
+<br>
+
+
+
+<span class="code">drawPixel(self, x=1, y=1, z=0,
+color=(0,0,0,1))</span><br>
+
+
+
+Draws a pixel at a given x and y with given color .<br>
+
+
+
+Color = 3 or 4 arg tuple. RGB values from 0 to 1 being 1 max value (1,
+1, 1) would be white</p>
+
+
+
+<p> <span class="code">drawLine(self, p1, p2, z=0,
+color=(0,0,0,1), stroke=0, rotation=0.0, style=0)</span><br>
+
+
+
+p1, p2 are two tuple points and color is tuple rgb, values range 0 to 1<br>
+
+
+
+Rotation in degrees. clockwise.<br>
+
+
+
+style is a value like 0xF0F0 (dashed line), 0xF00F (long dashed line)
+or 0x8888 (dotted lines) </p>
+
+
+
+<p><span class="code">drawPolygon(self, v=[], z=0,
+color=(0,0,0,1), stroke=0, rotation=0.0, texID=None, texCoord=[],
+style=0)</span><br>
+
+
+
+v is an array with tuple points like [(x, y), (x2, y2), (x3, y3)]<br>
+
+
+
+min vertex number to draw a polygon is 3<br>
+
+
+
+stroke=0 to fill with color the inside of the shape or stroke=integer
+just to draw N-px thick outline.<br>
+
+
+
+style is a value like 0xF0F0 (dashed line), 0xF00F (long dashed line)
+or 0x8888 (dotted lines) <br>
+
+
+
+Note. It doesnt work with non covex polygons, need to implement
+tesselation yet</p>
+
+
+
+<p><span class="code">drawRect(self, x=1, y=1, z=0,
+width=10, height=10, color=(0,0,0,1), stroke=0, rotation=0.0,
+texID=None, texCoord=[], style=0)</span><br>
+
+
+
+draws a rect<br>
+
+
+
+style is a value like 0xF0F0 (dashed line), 0xF00F (long dashed line)
+or 0x8888 (dotted lines) </p>
+
+
+
+<p><span class="code">drawCircle(self, x=1, y=1,
+z=0, radius=5, color=(0,0,0,1), stroke=0, rotation=0.0, style=GLU_FILL)</span><br>
+
+
+
+x, y, z, width in pixel, rotation, color and line width in px<br>
+
+
+
+style choices are : GLU_LINE, GLU_FILL, GLU_SILHOUETTE, GLU_POINT) <br>
+
+
+
+TO DO : textured circles</p>
+
+
+
+<p><span class="code">drawArc(self, x, y, z=0,
+radius=1, start=0, sweep=1, color=(0,0,0,1), stroke = 0, rotation=0.0,
+style=GLU_FILL)</span><br>
+
+
+
+start angle, sweep is arc lenght in angles *anticlockwise*<br>
+
+
+
+style choices are : GLU_LINE, GLU_FILL, GLU_SILHOUETTE, GLU_POINT</p>
+
+
+
+<p>This methods can be used to extend the render method of
+Mirra's built in graphic primitives or to draw directly from the render
+method of our mainApp. For example you could extend the drawing method
+or a Rect to draw a circle around it, lets see how it would look:</p>
+
+
+
+<p> class myCustomRect(Rect): # extends mirra.graphics.Rect class<br>
+
+
+
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; def render() :<br>
+
+
+
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;super(myCustomRect, self).render() # call superclass
+method<br>
+
+
+
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;e.drawCircle(self.x, self.y, z, self.width, self.color) #
+calling engine instance drawing methods</p>
+
+
+
+<p></p>
+<p></p>
+
+
+
+<p><a name="key"></a>Key Reference :</p>
+
+
+
+<p>To check wxPython key reference</p>
+
+
+
+<p>def keyDown(self, k):<br>
+
+
+
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; print k # this just prints the key number<br>
+
+
+
+
+<br>
+
+
+
+<br>
+
+
+
+</p>
+
+
+
+<p><br>
+
+
+
+</p>
+
+
+
+<p class="titles"><a name="osc" id="osc"></a>Open Sound Control module :</p>
+
+
+
+<p> the OSC module within Mirra allows to send and receive OSC
+messages. OSC is a very handy network protocol, read more about it at <a href="http://www.cnmat.berkeley.edu/OpenSoundControl/" target="_blank">http://www.cnmat.berkeley.edu/OpenSoundControl/</a><br>
+
+
+
+<br>
+
+
+
+There is a <em>exampleosc.py</em> module where you are
+provided with
+a template of a Mirra file that sends and receives OpenSoundControl
+messages. A PureData (http://pd.iem.org) patch called osc.pd explains
+how to communicate Mirra with other software able to communicate via
+OSC.<br>
+
+
+
+It can be as simple as doing this:
+<br>
+
+import osc
+<br>
+
+osc.init()
+# defaults to &nbsp;ip 127.1.1.1 port 9000<br>
+
+osc.sendMsg(/hello, [666])
+<br>
+
+Check the exampleosc.py file for more details
+<br>
+
+
+
+<br>
+
+
+
+<br>
+
+
+
+</p>
+
+
+
+<p class="titles"><a name="creating" id="creating"></a>Creating executables/apps for
+windows or mac : </p>
+
+
+
+<p>Mirra allows to create self executables non dependent from Python interpreter 
+  and dependencies by using the py2app (<a href="http://undefined.org/python/#py2app" target="_blank">http://undefined.org/python/#py2app</a>) 
+  module on OSX and py2exe (<a href="http://starship.python.net/crew/theller/py2exe/" target="_blank">http://www.py2exe.org</a>) 
+  under windows. So you MUST have either of those libraries installed. On linux 
+  does not make much sense to do this so you have to install the libraries requiered. 
+</p>
+<p>**Note that currently (November 07) if you use PyOpenGL 3 under windows there 
+  are some issues with the way py2exe handles python eggs. This has to be solved 
+  by the py2exe developers. On the mean time you have to manually copy the pyOpenGL 
+  and setuptools eggs to your dist/lib folder after you pack your app with mirra. 
+  Check the example provided for details. The rest of this help is correct.</p>
+
+
+
+<p>To make our lives easier, we created a crossplatform module
+inside Mirra that takes care off all this automatically. So all you
+need to do it to place this three lines in your setup()</p>
+
+
+
+<p>import sys<br>
+
+
+
+from mirra import export<br>
+
+
+
+export.pack('myscript.py')</p>
+
+
+
+<p>Next time you run your script, the export.pack() function will
+perform all steps required and after that it will quit. The process
+imports all the libraries and packages your app needs, it also imports
+all the files inside a folder called&nbsp;data next to your main
+script.
+So if you are importing images or audio you might want to place them
+there. After your script has quited you should find an folder called
+dist with the app (on mac) or with few files and folders (on windows)
+with the yourscript.exe file included. Copying the dist folder and to
+any machine should be enough to run it despite of that machine not
+having python or any libray installed. Note that the script might raise
+some error at some point, check the console output to see if everything
+went right. </p>
+
+
+
+<p>In general you wont really need to change the command and the
+three lines above should be enough. But in case you want to do extra
+things like specify an icon, extra folders containing files (not
+included in data folder) or extra Python packages you can specify
+parameters to the command.</p>
+
+
+
+<p>Note that on MAC the script deletes the previous dist during
+the process.</p>
+
+
+
+<p>This the API for export.pack<br>
+  pack(mainFile=, extraPackages=[], extraFiles=[], iconPath='')</p>
+
+
+
+<p>Extra packages : <br>
+
+
+
+export.pack('myscript.py', extraPackages = [mypackage]) </p>
+
+
+
+<p>Custom icons :<br>
+  export.pack('myscript.py', iconPath = 'myicon.ico') # OR myicon.icns on mac</p>
+
+
+
+<p>Specifying extraFiles is a bit more complex, this is an
+example of how to specify extra files and folders to be added to the
+application:<br>
+
+
+
+files = [ ("stuff", ["stuff/slicer_pd.pd", "stuff/sampler.pd"]) ] <br>
+
+
+
+export.pack('myscript.py', extraFiles = files)</p>
+
+
+
+<p>So a full complex example of the use would be:<br>
+
+
+
+import sys<br>
+
+
+
+from mirra import export<br>
+
+
+
+files = [ ("stuff", ["stuff/slicer_pd.pd", "stuff/sampler.pd"]),
+("anotherfolder", ["anotherfolder/blah.txt"]) ]<br>
+  export.pack('myscript.py', extraPackages = [mypackage], extraFiles = files, 
+  iconPath = &quot;data\\icon\\myicon.ico&quot; )</p>
+
+
+
+<p>More advanced users can create their own setup.py file for
+py2app or py2exe, just remember to add&nbsp;mirra to the packages
+included
+and to manually copy the site-packages/OpenGL folder to the dist folder
+on windows But you probably just want to stick to the simple use which
+should be enough for most of us.<br>
+
+
+
+</p>
+
+
+
+<p class="titles"><a name="extending" id="extending"></a>Extending Mirra :
+</p>
+
+
+
+<p> Because currently Mirra is just 100% Python plus some widely
+used libraries (PyOpenGL, Pygame) you can easily use any part of the
+Python standard library and other Python library to extend Mirra for
+you needs, please let us know if you add something that would be of
+interest for all Mirra users.<br>
+
+
+
+<br>
+
+
+
+</p>
+
+
+
+<p class="titles"><a name="todo" id="todo"></a>TO DO:
+</p>
+
+
+
+<p> - wx : Joystick events implement (check if wxpython supports joysticks on 
+  OSX)<br>
+  - wx : update wx key reference example 03eventskey.py<br>
+  - exceptions sometimes come from not the actual error, this is confussing for 
+  debugging <br>
+  - textured circles<br>
+  - drop pygame to use only wx?<br>
+  - add center button event<br>
+  - delete textures from opengl memory when textured objects are deleted<br>
+  - when trials is set to True it forces background to white color, need to find 
+  a way to do this if possible.<br>
+  - explore possibility to use Polygon library<br>
+  - include pyode physics engine support <br>
+  - posibility to use opengl scale. This would require to update with, height, 
+  vertex etc... on the fly for the intersections and also to implement intersection 
+  between point and elipse. <br>
+  - more mouse events on objects like mouseUpOutSide, mouseOver, etc...<br>
+  - optimise rendering:<br>
+  explore possibility to delegate to C some rendering loops<br>
+  # explore display lists # done: no much improvement <br>
+  render by object types to call glBegin(GL_LINES) etc... only once rendering 
+  all similar shapes in the same call <br>
+  - support antialias <br>
+  - tesselation on polygons<br>
+  - try to create hierarchy systems (glPopMatrix and glPushMatrix) and allow for 
+  relative locations.<br>
+  - event driven (pop and not push) OSC system, maybe using Twisted?<br>
+  - SuperCollider, OSW and Chuck sound examples with OSC<br>
+  - implement some kind of object subgrouping system like in Flash. Maybe the 
+  easiest way to do this is the user to use own lists to store objects instances 
+  in groups?<br>
+  - MIDI support<br>
+  - video (Myron for webcams?)<br>
+  - try nested ifs --&gt; hash tables <br>
+  - pygame : extend sound functionality<br>
+  - wx : drag and drop<br>
+  - wx : right/control click menu<br>
+  - wx : other widgets? to be able to draw openGL window within a defined boxer 
+  in the window<br>
+  <br>
+  &nbsp;... <br>
+  email us with your request or ideas to info@ixi-software.net or to the Mirra 
+  mailing list</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p class="titles"><a name="files" id="files"></a>Contents
+of Mirra:
+</p>
+
+
+
+<p>&gt; /documentation<br>
+
+
+
+documentation.html<br>
+
+
+
+license.txt <br>
+
+
+
+&gt; /examples<br>
+
+
+
+mirratemplate.py --&gt; Application example <br>
+
+
+
+exampleosc.py --&gt; OpenSoundControl example<br>
+
+
+
+examples 1 to N --&gt; some examples using and extending the
+built-in classes<br>
+  wxgui.py --&gt; (for wxpython only) example description of own menus, dialogues 
+  and their functionality.<br>
+
+
+
+osc.pd --&gt; PureData patch sending and receiving OSC to
+exampleosc.py<br>
+
+
+
++ other examples ... <br>
+
+
+
+&gt; /mirra package folder:<br>
+
+
+
+main.py --&gt; main application class<br>
+
+
+
+graphics.py --&gt; main drawing classes and graphicsStack instance<br>
+
+
+
+events.py --&gt; event handling classes<br>
+
+
+
+export.py --&gt; py2exe / py2app setup script<br>
+
+
+
+utilities.py --&gt; a handy bunch of functions (collisions, random
+nums and colors, rotations, some triginometry and maths) and utility
+classes such as the Stack class.<br>
+
+
+
+export.py --&gt; py2exe and py2app functionality<br>
+
+
+
+&gt; /mirra/OSC package folder:<br>
+
+
+
+OSC.py --&gt; Open Sound Control library by daniel Holth<br>
+
+
+
+oscAPI.py --&gt; simple interface to OSC.py by ixi <br>
+
+
+
+<br>
+
+
+
+</p>
+
+
+
+<p>&nbsp;</p>
+
+
+
+<p class="titles"><a name="aknow" id="aknow"></a>Aknowledgements
+:
+</p>
+
+
+
+<p> Currently Mirra is made thanks to the support and help of: <br>
+
+
+
+- The Digital Research Unit / Center for Excelence on Digital Design at
+the University of Huddersfield. <a href="http://druh.co.uk" target="_blank">http://www.druh.co.uk</a><br>
+
+
+
+- Goto10 collective <a href="http://www.goto10.org" target="_blank">www.goto10.org</a>
+</p>
+
+
+
+<p>
+Thanks to Goto10 collective <a href="http://www.goto10.org" target="_blank">www.goto10.org</a> 
+  for thir SVN hosting and mailing list.</p>
+
+<p>Some parts of the development of Mirra were developed with the support  from different institutions :<br>
+  - The Digital Research Unit at the University of Huddersfield. <a href="http://druh.co.uk" target="_blank">http://www.druh.co.uk</a><br>
+  - The Lansdown Center for Electronic Arts at Middlesex University who helped 
+  providing expertise and support for developing the early versions of Mirra. 
+  <a href="http://www.cea.mdx.ac.uk/" target="_blank">http://www.cea.mdx.ac.uk/</a><br>
+  - Bizkaiko Diputazioa, Basque Country.<br>
+  - Buchsenhausen Kunstlerhaus, Innsbruck, Austria.</p>
+<p>Tom Schoulten, John Cox, Daniel Holth and Tom Betts for the technical help. </p>
+<br>
+
+
+
+<br>
+
+
+
+</p>
+
+
+
+<p class="titles"><a name="feedback" id="feedback"></a>Feedback: </p>
+
+
+
+<p>We would more than happy to hear your comments, suggestions or to incorporte 
+  any improvement you might do to our code. Contact us on <a href="http://www.ixi-software.net" target="_blank">www.ixi-software.net</a> 
+  , Mirra's mailing list (<a href="http://lists.goto10.org/cgi-bin/mailman/listinfo/mirra" target="_blank">http://lists.goto10.org/cgi-bin/mailman/listinfo/mirra</a>) 
+  or info@ixi-software.net<br>
+
+
+
+enjoy.<br>
+
+
+
+</p>
+
+
+
+</body>
+</html>

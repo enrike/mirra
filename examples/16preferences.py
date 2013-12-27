@@ -27,13 +27,7 @@ class MirraApp(main.App):
         ''' read only the ones related to windows setup. others wont work yet
         '''
         try :
-            if sys.platform == 'darwin' and utilities.run_as_app() :
-                p = os.path.join(os.getcwd(), '../../../', filename)
-            else :
-                p = os.path.join(os.getcwd(), filename)
-        
-            if not os.path.isfile( p ) :
-                p = filename
+            p = utilities.getabspath(filename)
 
             raw = open(p, 'rU').read()
             self.jsondata = json.loads(raw)

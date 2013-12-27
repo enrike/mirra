@@ -19,7 +19,7 @@ class MirraApp(main.App):
         """
         self.env = 'wx'
         self.caption = "mirra wxpython example" # window name
-        self.size = 640, 480 #window size
+        self.size = 1024, 768 #window size
         self.pos = 100,100 # window top left location
         self.fullScreen = 0 # if fullScreen is on it will overwrite your pos and size to match the display's resolution
         self.frameRate = 15 # set refresh framerate

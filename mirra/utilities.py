@@ -8,6 +8,21 @@ import os
 seed = random.Random()
 
 
+def getabspath(f=''):
+    p = ''
+    if run_as_app() :
+        if sys.platform == 'darwin' :
+            p = os.path.join(os.getcwd(), '../../../', f)
+        elif sys.platform == "win32":
+            # get the exe directory and append the prefs file name
+            p = os.path.join(sys.executable[:-len(os.path.basename(sys.executable))], f)
+    else :
+        p = os.path.join(os.getcwd(), f)
+
+    if not os.path.isfile( p ) :
+        print "prefs file does not exist", p
+
+    return p
 
 
 def path(res = '') :
@@ -44,6 +59,14 @@ def run_as_app() :
     return (hasattr(sys, "frozen") or # new py2exe
         hasattr(sys, "importers") # old py2exe
             or imp.is_frozen("__main__") ) # tools/freeze
+
+
+##if getattr(sys, 'frozen', False):
+##    application_path = os.path.dirname(sys.executable)
+##elif __file__:
+##    application_path = os.path.dirname(__file__)
+##
+##config_path = os.path.join(application_path, config_name)
 
 
 
@@ -620,10 +643,10 @@ try:
             menu1.Append(105, "&Quit", "quit")
             self.SetMenuBar(menuBar)
             
-        def doStatusBar(self) :
-            self.CreateStatusBar(1,0)
-            self.SetStatusText("status bar")
-        	
+##        def doStatusBar(self) :
+##            self.CreateStatusBar(1,0)
+##            self.SetStatusText("status bar")
+     	
         def doStructure(self, canvas) : 
             """ defines a basic layout structure
             to be overwriten by users needing complex structures
