@@ -16,6 +16,8 @@ def getabspath(f=''):
         elif sys.platform == "win32":
             # get the exe directory and append the prefs file name
             p = os.path.join(sys.executable[:-len(os.path.basename(sys.executable))], f)
+        else :
+            p = os.path.join(os.getcwd(), f)
     else :
         p = os.path.join(os.getcwd(), f)
 
@@ -26,7 +28,8 @@ def getabspath(f=''):
 
 
 def path(res = '') :
-    """ returns the absolute path to a file or folder -> string
+    """ DEPRECATED. use getabspath()
+        returns the absolute path to a file or folder -> string
     """
     p = os.path.join(os.path.dirname(sys.argv[0]), res)
     if os.path.isfile(p) or os.path.isfile(p) :
@@ -47,19 +50,27 @@ def get_cwd() :
 def get_main_dir() :
     """ returns the directory name of the script or the directory name of the exe -> string
     """
-    if main_is_frozen() :
-        return os.path.dirname(sys.executable)
-    return os.path.dirname(sys.argv[0])
+##    import inspect
+##    return os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    directory = ''
+    if run_as_app() :
+        directory = os.path.dirname(sys.executable)
+
+    directory = os.getcwd() # os.path.dirname(sys.argv[0])
+
+    return directory
 
 
 def run_as_app() :
     """ returns True when running the exe, and False when running from a script. -> boolean
     """
-    import imp, sys
-    return (hasattr(sys, "frozen") or # new py2exe
-        hasattr(sys, "importers") # old py2exe
-            or imp.is_frozen("__main__") ) # tools/freeze
+    return getattr(sys, 'frozen', False)
 
+##    import imp, sys
+##    return (hasattr(sys, "frozen") or # new py2exe
+##        hasattr(sys, "importers") # old py2exe
+##            or imp.is_frozen("__main__") ) # tools/freeze
+##
 
 ##if getattr(sys, 'frozen', False):
 ##    application_path = os.path.dirname(sys.executable)
