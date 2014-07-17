@@ -186,9 +186,13 @@ try:
 ##            else:
 ##                self.canvas = glcanvas.GLCanvas(self.frame, -1, self.pos, (self.size[0]+10,self.size[1]+45)) #, name=self.caption)
 
-            self.canvas = glcanvas.GLCanvas(self.frame, -1, self.pos, canvas_size) #, name=self.caption)
+            attribList = (glcanvas.WX_GL_RGBA, # RGBA
+                      glcanvas.WX_GL_DOUBLEBUFFER, # Double Buffered
+                      glcanvas.WX_GL_DEPTH_SIZE, 24) # 24 bit
 
-            self.canvas.Bind(wx.EVT_PAINT, self.OnPaint)
+            self.canvas = glcanvas.GLCanvas(self.frame, -1, self.pos, canvas_size, attribList=attribList) #, name=self.caption)
+
+            self.canvas.Bind(wx.EVT_PAINT, self.OnPaint, )
             self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground) # dummy
 
             def OnCloseWindow(evt):
