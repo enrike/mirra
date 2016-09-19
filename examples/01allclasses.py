@@ -17,6 +17,7 @@ class MirraApp(main.App) :
     def setUp(self) : 
         """ set here the main window properties and characteristics
         """
+        self.env = "pygame"
         self.smooth = 1
         self.caption = "mirra example basic" # window name
         self.size = 640,480 # window size.         self.pos = 50,50 # window top left location

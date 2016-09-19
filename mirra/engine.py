@@ -1,26 +1,9 @@
 
 import sys, os
 
-import_error = None # lib import errors
-
-try :
-    from OpenGL.GLUT import *
-    from OpenGL.GLU import *
-    from OpenGL.GL import *
-except ImportError:
-    import_error = 'pyOpenGL'
-
-try: # only for importing the image files
-    import pygame
-except ImportError:
-    import_error += ' pygame'
-
-if import_error :
-    print '*'*10
-    print 'Mirra > graphics.py : ImportError, could not import %s . It must be installed in your system to run Mirra' % (import_error)
-    print '*'*10
-    import sys
-    sys.exit() # quit
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+from OpenGL.GL import *
 
 from utilities import *
 
@@ -92,89 +75,11 @@ def addAt(z, obj):
 
 
 
-#############################
-# texture functions
-
-def loadTexture(path) :#name):
-    """ load texture. to be acced from Bitmap and BitmayPoligon
-    """
-    if textures.has_key(path) :
-        return textures[path] # import it only once
-
-    surface = pygame.image.load(path) # need to remove dependency from pygame
-    if surface.get_alpha is None:
-       surface = surface.convert()
-    else:
-       surface = surface.convert_alpha()
-
-    bin = pygame.image.tostring(surface, "RGBA", 1) # need to remove dependency from pygame
-    w, h = surface.get_width(), surface.get_height()
-
-####        # Wx code. Needs to pass alpha too
-####        image = wx.Image(path, wx.BITMAP_TYPE_ANY)
-######        image.ConvertAlphaToMask(220)
-######        image = image.ConvertToBitmap()
-####        bin = image.GetData()
-####        w,h = image.GetWidth(), image.GetHeight()
-####        if image.HasAlpha() :
-####            alpha = image.GetAlpha()
-######            print 'alpha', alpha
-######        print 'bin', bin
-
-    textid = glGenTextures(1)
-    glBindTexture(GL_TEXTURE_2D, textid)
-
-######        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-######        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-######        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, bin )
-    
-    gluBuild2DMipmaps(GL_TEXTURE_2D, 4, w, h, GL_RGBA, GL_UNSIGNED_BYTE, bin)
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE) # GL_MODULATE, GL_DECAL, GL_BLEND, or GL_REPLACE
-##        >>>> GL_MODULATE # to get bitmap blended (Tom) # replace works ok but no image blend 
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT) # GL_CLAMP
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT) # GL_CLAMP
-
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-
-    textures[path] = textid
-    return textid
-
-
-def deleteTexture(txt):
-    # TO DO : need to check if any one is still using it before deleting it
-    if textures.has_key(txt) : # if there
-        try :
-            p = textures.get(txt)
-            textures.pop(p)
-        except :
-            pass # already deleted or non existent txt
-        glDeleteTextures(txt)
 
 ###########################
 
 
 
-##    def screenshot( path_prefix='.', format='PNG'):
-##        """Saves a screenshot of the current frame buffer.
-##        The save path is <path_prefix>/.screenshots/shot<num>.png
-##        The path is automatically created if it does not exist.
-##        Shots are automatically numerated based on how many files
-##        are already in the directory."""
-##        import Image, os
-##        dir = os.path.join(path_prefix, '.screenshots')
-##        if not os.path.exists(dir):
-##            os.makedirs(dir)
-##        index = len(os.listdir(dir))
-##        path = os.path.join(dir, 'shot' + str(index) + '.png')
-##        glPixelStorei(GL_PACK_ALIGNMENT, 1)
-##        data = glReadPixels(0, 0,
-##            width, height, GL_RGB, GL_UNSIGNED_BYTE)
-##        image = Image.fromstring("RGB",
-##            (width, height), data)
-##        image = image.transpose( Image.FLIP_TOP_BOTTOM)
-##        image.save(path, format)
-##        print 'Image saved to %s'% (os.path.abspath(path))
 
     
 def checkMouseIntersection( x, y, flag ) : 
@@ -229,15 +134,13 @@ def checkMouseIntersection( x, y, flag ) :
 
 ###########
 
-def start( s=(640,480), c=(1,1,1,0), t=0, sm=0, m='2D' ) :
+def start( s=(640,480), c=(1,1,1,0), t=0, sm=0 ) :
     """ inits main Engine instance's variables
     """
-    global mode, size, trails, smooth,  bgColor, q
+    global size, trails, bgColor, q
 
     q = gluNewQuadric()
     
-    mode = m
-    smooth = sm
     size = s # w and h
     trails = t # leave trails
 
@@ -285,14 +188,16 @@ def restart() :
     glMatrixMode(GL_PROJECTION)     # set to proyection mode
     glLoadIdentity()                # load identity matrix -> reset 3D world view
 
-    if mode=='2D' :
-        # set proyection to screen size to allow 1:1 mapping and (0,0) to be on left bottom
-        glOrtho(0, size[0],  size[1], 0, 5000, 0) # glOrtho(left, right, bottom, top, zNear, zFar)
-    else :# 3D
-        # glFrustum(left, right, bottom, top, zNear, zFar)
-        # gluPerspective(fovy, aspect, zNear, zFar) 
-##            glFrustum(0, size[0], size[1], 0, 5000, 1)
-        gluPerspective(10, size[0]/float(size[1]), 5000, 0) 
+    glOrtho(0, size[0],  size[1], 0, 5000, 0)
+    
+##    if mode=='2D' :
+##        # set proyection to screen size to allow 1:1 mapping and (0,0) to be on left bottom
+##        glOrtho(0, size[0],  size[1], 0, 5000, 0) # glOrtho(left, right, bottom, top, zNear, zFar)
+##    else :# 3D
+##        # glFrustum(left, right, bottom, top, zNear, zFar)
+##        # gluPerspective(fovy, aspect, zNear, zFar) 
+####            glFrustum(0, size[0], size[1], 0, 5000, 1)
+##        gluPerspective(10, size[0]/float(size[1]), 5000, 0) 
         
     glMatrixMode(GL_MODELVIEW)  # back to modeling mode
     glLoadIdentity()  # again
@@ -332,7 +237,7 @@ def render() : #, fcount):
     else: # GL_ACCUM_BUFFER_BIT | GL_STENCIL_BUFFER_BIT
          glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-    for o in graphicsStack : 
+    for o in graphicsStack :
         o.render() 
         o.step()    
 

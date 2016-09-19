@@ -465,64 +465,65 @@ class Arc(Base) :
 
 
 # textured classes
-
-class Bitmap(Rect):
-    """ Bitmap with Rect shape
-    It doesnt use Color nor Fill properties
-    example: Bitmap('ixi.bmp', 100, 100, 1, 50, 50, 45)
-    """
-    def __init__(self, file, x=0, y=0, z=0, width=10, height=10, rotation=0.0) : 
-        Rect.__init__(self, x, y, z, width, height, (0,0,0,1), 0, rotation)
-        self.setImage(file)
-
-    def flipV(self):
-        """ flips vertically the image (not the shape)
-        """
-        # --> self.texCoord=[(0, 0), (1, 0), (1, 1), (0, 1)]
-        #self.texCoord.reverse() # there was an error
-        a = self.texCoord[0]
-        b = self.texCoord[1]
-        c = self.texCoord[2]
-        d = self.texCoord[3]
-        self.texCoord = [d, c, b, a]
-
-    def flipH(self):
-        """ flips horizonallly the image (not the shape)
-        """
-        # --> texCoord=[(1, 1), (0, 1), (0, 0), (1, 0)]
-        a = self.texCoord[0]
-        b = self.texCoord[1]
-        c = self.texCoord[2]
-        d = self.texCoord[3]
-        self.texCoord = [b, a, d, c]
-
-    def end(self):
-        #Engine.deleteTexture(self.texID)
-        engine.deleteTexture(self.texID)
-
-    def render(self) : #, e):
-        self.updateV()
-        engine.drawTexturedVertex(self.rect.x, self.rect.y, self.z, self.v2, self.rotation,
-                          self.texID, self.texCoord)
-        
-
-
-
-class BitmapPolygon(Polygon):
-    """ Bitmap with Polygon shape
-    It doesnt use Color nor Fill properties
-    example : BitmapPolygon('ixi.bmp', [(0,0), (100,10), (150, 200), (0, 300)], 1, 45)
-    """
-    def __init__(self, file, vertexarray=[], z=0, rotation=0.0 ) : 
-        Polygon.__init__(self, vertexarray, z, (0,0,0,1), 0, rotation)
-        self.setImage(file)
-
-    def end(self):
-        #Engine.deleteTexture(self.texID)
-        engine.deleteTexture(self.texID)
-
-    def render(self) : #, e):
-        self.updateV()
-        engine.drawTexturedVertex(self.rect.x, self.rect.y, self.z, self.v2, self.rotation,
-                          self.texID, self.texCoord)
-
+##
+##class Bitmap(Rect):
+##    """ Bitmap with Rect shape
+##    It doesnt use Color nor Fill properties
+##    example: Bitmap('ixi.bmp', 100, 100, 1, 50, 50, 45)
+##    """
+##    def __init__(self, file, x=0, y=0, z=0, width=10, height=10, rotation=0.0) : 
+##        Rect.__init__(self, x, y, z, width, height, (0,0,0,1), 0, rotation)
+##        self.setImage(file)
+##
+##    def flipV(self):
+##        """ flips vertically the image (not the shape)
+##        """
+##        # --> self.texCoord=[(0, 0), (1, 0), (1, 1), (0, 1)]
+##        #self.texCoord.reverse() # there was an error
+##        a = self.texCoord[0]
+##        b = self.texCoord[1]
+##        c = self.texCoord[2]
+##        d = self.texCoord[3]
+##        self.texCoord = [d, c, b, a]
+##
+##    def flipH(self):
+##        """ flips horizonallly the image (not the shape)
+##        """
+##        # --> texCoord=[(1, 1), (0, 1), (0, 0), (1, 0)]
+##        a = self.texCoord[0]
+##        b = self.texCoord[1]
+##        c = self.texCoord[2]
+##        d = self.texCoord[3]
+##        self.texCoord = [b, a, d, c]
+##
+##    def end(self):
+##        #Engine.deleteTexture(self.texID)
+##        engine.deleteTexture(self.texID)
+##
+##    def render(self) : #, e):
+##        self.updateV()
+##        engine.drawTexturedVertex(self.rect.x, self.rect.y, self.z, self.v2, self.rotation,
+##                          self.texID, self.texCoord)
+##        
+##
+##
+##
+##class BitmapPolygon(Polygon):
+##    """ Bitmap with Polygon shape
+##    It doesnt use Color nor Fill properties
+##    example : BitmapPolygon('ixi.bmp', [(0,0), (100,10), (150, 200), (0, 300)], 1, 45)
+##    """
+##    def __init__(self, file, vertexarray=[], z=0, rotation=0.0 ) : 
+##        Polygon.__init__(self, vertexarray, z, (0,0,0,1), 0, rotation)
+##        self.setImage(file)
+##
+##    def end(self):
+##        #Engine.deleteTexture(self.texID)
+##        engine.deleteTexture(self.texID)
+##
+##    def render(self) : #, e):
+##        self.updateV()
+##        engine.drawTexturedVertex(self.rect.x, self.rect.y, self.z, self.v2, self.rotation,
+##                          self.texID, self.texCoord)
+##
+##

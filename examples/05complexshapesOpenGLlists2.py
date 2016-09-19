@@ -4,6 +4,8 @@ from mirra import main
 from mirra.graphics import *
 from mirra import utilities
 
+from OpenGL.GL import *
+
 
 """ Mirra : 2D graphic engine in OpenGL by www.ixi-software.net
     Check out documentation files
@@ -50,7 +52,7 @@ class Shape(Circle):
         glTranslatef(self.x, self.y, -self.z) # where 
         
         glColor4f (self.color[0], self.color[1],self.color[2], self.color[3]) # shapes color
-        gluDisk(e.q, 0, self.width/2, 50, 1)
+        gluDisk(engine.q, 0, self.width/2, 50, 1)
 
         glPushMatrix() # push circles
        

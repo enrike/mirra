@@ -19,7 +19,7 @@ class MirraApp(main.App):
         self.caption = "direct drawing with OpenGL using graphics engine instance" # window name
         self.size = 640, 480 #window size
         self.pos = 0,0 # window top left location
-        self.fullScreen = 1 # if fullScreen is on it will overwrite your pos and size to match the display's resolution
+##        self.fullScreen = 1 # if fullScreen is on it will overwrite your pos and size to match the display's resolution
         self.frameRate = 20 # set refresh framerate
 
 
@@ -40,7 +40,7 @@ class MirraApp(main.App):
         glLineWidth(10)
 
         glBegin(GL_LINES)
-        glVertex2i(10, -100) # draw pixel points
+        glVertex2i(0, -100) # draw pixel points
         glVertex2i(200, -200)
         glEnd()
         glPopMatrix()

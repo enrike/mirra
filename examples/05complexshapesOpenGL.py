@@ -4,6 +4,8 @@ from mirra import main
 from mirra.graphics import *
 from mirra import utilities
 
+from OpenGL.GL import *
+
 
 """ Mirra : 2D graphic engine in OpenGL by www.ixi-software.net
     Check out documentation files

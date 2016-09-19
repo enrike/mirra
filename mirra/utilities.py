@@ -22,7 +22,7 @@ def getabspath(f=''):
         p = os.path.join(os.getcwd(), f)
 
     if not os.path.isfile( p ) :
-        print "prefs file does not exist", p
+        print "file does not exist", p
 
     return p
 
@@ -78,89 +78,6 @@ def run_as_app() :
 ##    application_path = os.path.dirname(__file__)
 ##
 ##config_path = os.path.join(application_path, config_name)
-
-
-
-# pygame stuff #
-
-
-try:
-    import pygame
-except ImportError:
-    print 'Mirra > utilities.py : ImportError, could not import pygame. Pygame must be installed in your system to run Mirra'
-    sys.exit() # quit
-
-
-class Audio:
-    """ provides basic audio functionality.
-    receives an integer with the sampling frequency to init the pygame mixer, defaults to 44100
-    To be extended further.
-    """
-    def __init__(self, freq=44100) :
-        self.sounds = {}
-        try :
-            pygame.mixer.init(freq)
-            self.init = 1
-        except pygame.error:
-            print "no sound device available"
-
-    def loadSound(self, path) :#name) :
-        """ returns the path to a sound file
-        """
-        if self.sounds.has_key(path) : # loaded already there dont load it again
-            return self.sounds[path]
-        else :
-            try :
-                sound = pygame.mixer.Sound(path) # load it
-##                sound = wx.Sound(path)
-                self.sounds[path] = sound # remember
-                return sound
-            except pygame.error:
-                print "no sound device available"
-
-    def playSound(self, path, volume=1.0, pan=0.5, channel=0, loop=0, maxtime=-1) :
-        """ playSound(self, name, volume=1.0, pan=0.5, channel=0, loop=0, maxtime=-1)
-        """
-        if not channel : channel = self.findFreeChannel()
-
-        sound = self.loadSound(path)
-
-        channel.stop() # just in case
-
-        if volume > 1 : volume = 1 # limit
-        if volume < 0 : volume = 0
-        if pan > 1 : pan = 1
-        if pan < 0 : pan = 0
-
-        self.setVolume(channel, volume, pan)
-        channel.play(sound, loop, maxtime)
-##        sound.Play(wx.SOUND_SYNC)
-
-
-    def findFreeChannel(self) :
-        """ returns a free channel in the mixer
-        """
-        try :
-            return pygame.mixer.find_channel()
-        except pygame.error:
-            print "no sound device available"
-            return 0
-        
-    def setVolume(self, channel, volume=1, pan=0.5) : # vol 0 to 1, pan 0 to 1
-        """ setVolume(self, channel, volume=1, pan=0.5)
-        sets volume and pan of given chanel
-        """
-        pan = 1 - pan # to get 0 left and 1 right
-        lvol = (volume * pan)/1. # need to calculte the volume for each channel from vol and pan
-        rvol = volume - lvol
-        channel.set_volume(lvol, rvol)
-
-    def getVolume(self, channel) : channel.get_volume()
-    def stopSound(self, channel) : channel.stop()
-    def pauseAll(self) :     pygame.mixer.pause()
-    def unpauseAll(self) :   pygame.mixer.unpause()
-    def stopAll(self) :      pygame.mixer.stop()
-
 
 
 
@@ -599,9 +516,6 @@ class RectUtils(object) :
 
 
 
-
-
-
 class Fps:
     import time # as class variable
 
@@ -615,93 +529,3 @@ class Fps:
         self.t = Fps.time.time() # update before returning
         if lapse == 0 : pass # avoid dividing by 0
         print 1/lapse
-#
-
-
-
-
-
-## WXpython utility classes ##
-
-try:
-    import wx
-    import wx.glcanvas
-
-    class WxMirraFrame(wx.Frame) :
-        """ basic frame, just puts the gl canvas covering the whole window
-        to be extended by users
-        """
-        def __init__(self, app, parent, ID, title, pos, size) :
-            wx.Frame.__init__(self, parent, ID, title, pos, size)#, wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE)
-            self.app = app # this is the top mirra app. keep a reference to comunicate back
-            self.SetSize(size) # sets wx window size
-            
-##            self.app.window.canvas.Bind(wx.EVT_CLOSE, OnCloseWindow)
-
-##        def OnCloseWindow(evt) :
-####            print 'quit'
-####            self.t.stop() # stop timer
-##            self.Close(True)
-##            self.Destroy()
-            
-
-        def doMenu(self) :
-            menuBar = wx.MenuBar()
-            menu1 = wx.Menu()
-            menuBar.Append(menu1,"&Archive")
-            menu1.Append(101, "&New", "new archive")
-            menu1.AppendSeparator()
-            menu1.Append(105, "&Quit", "quit")
-            self.SetMenuBar(menuBar)
-            
-##        def doStatusBar(self) :
-##            self.CreateStatusBar(1,0)
-##            self.SetStatusText("status bar")
-     	
-        def doStructure(self, canvas) : 
-            """ defines a basic layout structure
-            to be overwriten by users needing complex structures
-            """
-            mallaV = wx.BoxSizer(wx.VERTICAL)
-##            mallaH = wx.BoxSizer(wx.HORIZONTAL)
-##
-##            mallaV.Add(mallaH, 0, wx.EXPAND, 4)
-##            mallaV.Add(canvas, proportion=0, flag=wx.GROW|wx.ALL, border=0)
-            mallaV.Add(canvas, 0, wx.EXPAND | wx.ADJUST_MINSIZE, 0)
-
-            self.SetAutoLayout(True)
-            self.SetSizer(mallaV) 
-            mallaV.Fit(self) #
-            mallaV.SetSizeHints(self) #
-            self.Layout()
-            self.Centre()
-
-        def doFrame(self, canvas) :
-            """called from wxWindow in main. Construct here the menus, status bars ...
-            """
-##            self.doMenu()
-            #self.doStatusBar()
-            self.doStructure(canvas)
-
-
-
-            
-
-    class FpsTimer(wx.Timer) :
-        """ instanciated in main.py 
-        """
-        def __init__(self, fps, f) :
-            wx.Timer.__init__(self)
-            self.Start(1000./fps)
-            self.f = f # function to call on notify
-
-        def Notify(self) : self.f()
-
-
-
-
-except ImportError:
-    class wxMirraFrame: pass # void class otherwise frame might not defined and there is an error
-
-
-
