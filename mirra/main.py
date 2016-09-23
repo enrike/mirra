@@ -124,7 +124,8 @@ try:
             timer = QtCore.QTimer(self)
             timer.timeout.connect(self.glWidget.updateGL) ## prepares for paintGL
     ##        timer.timeout.connect(self.glWidget.update)
-            timer.start(frameRate)
+            ms = (1./frameRate) * 1000 # FPS to msecs
+            timer.start(ms) 
 
         def render(self):
             self.app.step()
@@ -265,6 +266,7 @@ class App(object):
     
         self.setUp() # get general window parameters from subclass
         #self.readSetUpPrefs(PREFSFILE)
+        print self.frameRate
 
         self.window = QTWindow(self, self.frameClass, self.caption, self.pos, self.size, self.fullScreen,
                                        self.frameRate, self.smooth)
