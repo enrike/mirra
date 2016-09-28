@@ -2,30 +2,25 @@
 
 Mirra
 2D OpenGL graphics Python framework by www.ixi-software.net
-version alpha 0.3.5 - May 08.
+version alpha 0.4b - Sept 2016.
 
 
 *** NOTICE *** 
-We are NOT further developing Mirra any longer. But we do ocassionally fix small bugs because we are still using it in some of our projects.
+This library is not under active development. We update it every now and then to fulfill our needs.
 
  
 
 Description:
 
-
 Mirra is a 2D OpenGL graphics library based on Python. Mirra allows for the creation of 2D interfaces, games or applications. It defines a set of classes to render primitive shapes (Text, Pixel, Line, Circle, Rect, Bitmap, BitmapPolygon), it manages rendering and user input (mouse and keyboard). Mirra focuses on interaction and implements an event managing system and classes that capture mouse events (in a way like Macromedia Director or Flash do).
 
-Mirra can send and receive OpenSoundControl messages via the OSC module. It allows to easily create exe and apps out of your scripts and also offers some basic sound features.
+Mirra can send and receive OpenSoundControl messages via the OSC module (altought this scripts are based on a pretty old implementation of OPSC for Python)
 
-Mirra can be run with the following window systems : wxPython, Pygame-SDL (by default).
-Using either Pygame or WxPython gives you access to various different features from those libraries such as import menus, drag&drop, basic sound features, etc... Check their websites for more info about what can be done with them --> www.pygame.org | www.wxpython.org
-
-Mirra has been also thought to be used to teach basics of programming to students by manipulating graphics.
+Mirra uses PyOPenGL and PyQT
 
  
 
 License :
-
 
 This library is free software; you can redistribute it and/or modify it under the terms of the Lesser GNU, Lesser General Public License as published by the Free Software Foundation.
 
@@ -38,19 +33,9 @@ Mirra contains small parts by others such as OSC.py by Daniel Holth under Lesser
 
 System requirements:
 
-
-Mirra works under any platform where Python runs (OS X, GNU/Linux, Windows, etc...).
-You will need to have Python plus some Python libraries (PyOpenGL and Pygame(SDL)) installed on your machine. You might need as well wxPython (if you choose to use wxPython to handle the application's window instead of Pygame). If you want to export your scripts as exe (windows) or app (Mac) you will need py2exe (windows users) or pyapp (mac users).
-- Must be there:
 Python - www.python.org
-Pygame - www.pygame.org
 PyOpenGL - pyopengl.sourceforge.net
-- Optional :
-WxPython - www.wxpython.org
-Py2exe (win) - www.py2exe.org
-Py2app (mac) - www.pythonmac.org/wiki/py2app
-
-OS X users http://pythonmac.org/packages/
+PyQT
 
 (*) Under some versions of Windows you might need to install as well GLUT32.dll to get OpenGL running. This can be downloaded from http://www.xmission.com/%7Enate/glut.html . Just copy the glut32.dll into your c:\windows\system32 folder
 
@@ -65,6 +50,9 @@ Uncompress the zip cd to the mirra folder and on the terminal type : 'python set
  
 
 Changes:
+
+0.4b : 
+- Complete removed Pygame and WxPython in favor of PyQT. This means that some old features are drop. Sound functionality is removed (better use Pyo library)
 
 0.3.5 :
 - Engine class from graphics.py converted to module engine.py with functions this allows to avoid having to pass the reference to engine on each render. Drawing functions are now accesed by importing engine. (First step towards moving this part of code into C)
@@ -196,10 +184,6 @@ documentation.html
 license.txt
 > /examples
 mirratemplate.py --> Application example
-exampleosc.py --> OpenSoundControl example
-examples 1 to N --> some examples using and extending the built-in classes
-wxgui.py --> (for wxpython only) example description of own menus, dialogues and their functionality.
-osc.pd --> PureData patch sending and receiving OSC to exampleosc.py
 + other examples ...
 > /mirra package folder:
 main.py --> main application class
@@ -207,8 +191,7 @@ graphics.py --> main drawing classes and graphicsStack instance
 events.py --> event handling classes
 export.py --> py2exe / py2app setup script
 utilities.py --> a handy bunch of functions (collisions, random nums and colors, rotations, some triginometry and maths) and utility classes such as the Stack class.
-export.py --> py2exe and py2app functionality
-> /mirra/OSC package folder:
+> /mirra/OSC package folder: (this is a pretty old implementation)
 OSC.py --> Open Sound Control library by daniel Holth
 oscAPI.py --> simple interface to OSC.py by ixi
 
