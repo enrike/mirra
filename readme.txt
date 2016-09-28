@@ -179,9 +179,6 @@ self.blend --> returns alpha component of instance's color
 
 Contents of Mirra:
 
-> /documentation
-documentation.html
-license.txt
 > /examples
 mirratemplate.py --> Application example
 + other examples ...
@@ -189,7 +186,6 @@ mirratemplate.py --> Application example
 main.py --> main application class
 graphics.py --> main drawing classes and graphicsStack instance
 events.py --> event handling classes
-export.py --> py2exe / py2app setup script
 utilities.py --> a handy bunch of functions (collisions, random nums and colors, rotations, some triginometry and maths) and utility classes such as the Stack class.
 > /mirra/OSC package folder: (this is a pretty old implementation)
 OSC.py --> Open Sound Control library by daniel Holth
@@ -203,8 +199,6 @@ Currently Mirra is made thanks to the support and help of:
 - The Digital Research Unit / Center for Excelence on Digital Design at the University of Huddersfield. http://www.druh.co.uk
 - Goto10 collective www.goto10.org
 
-Thanks to Goto10 collective www.goto10.org for thir SVN hosting and mailing list.
-
 Some parts of the development of Mirra were developed with the support from different institutions :
 - The Digital Research Unit at the University of Huddersfield. http://www.druh.co.uk
 - The Lansdown Center for Electronic Arts at Middlesex University who helped providing expertise and support for developing the early versions of Mirra. http://www.cea.mdx.ac.uk/
@@ -216,5 +210,4 @@ Tom Schoulten, John Cox, Daniel Holth and Tom Betts for the technical help.
 
 Feedback:
 
-We would more than happy to hear your comments, suggestions or to incorporte any improvement you might do to our code. Contact us on www.ixi-software.net , Mirra's mailing list (http://lists.goto10.org/cgi-bin/mailman/listinfo/mirra) or info@ixi-software.net
-enjoy.
+We would more than happy to hear your comments, suggestions or to incorporte any improvement you might do to our code. Contact us on www.ixi-software.net 
