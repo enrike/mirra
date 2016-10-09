@@ -121,11 +121,15 @@ try:
             self.events = events.EventListener(self.app) #, engine) # instance of event handler
             engine.start( size ) # this is overwritten later by the resize
 
-            timer = QtCore.QTimer(self)
-            timer.timeout.connect(self.glWidget.updateGL) ## prepares for paintGL
+            render_timer = QtCore.QTimer(self)
+            render_timer.timeout.connect(self.glWidget.updateGL) ## prepares for paintGL
     ##        timer.timeout.connect(self.glWidget.update)
             ms = (1./frameRate) * 1000 # FPS to msecs
-            timer.start(ms) 
+            render_timer.start(ms)
+
+##            step_timer = QtCore.QTimer(self)
+##            step_timer.timeout.connect(self.app.step)
+##            step_timer.start(35)# fast
 
         def render(self):
             self.app.step()
