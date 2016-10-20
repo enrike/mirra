@@ -10,9 +10,14 @@ seed = random.Random()
 
 def getabspath(f=''):
     p = ''
+    #print os.getcwd(), f, sys.executable
     if run_as_app() :
         if sys.platform == 'darwin' :
-            p = os.path.join(os.getcwd(), '../../../', f)
+##            p = os.path.join(sys.executable, "../../../", f)
+            p = "/"
+            for st in sys.executable.split("/")[1:-4]:
+                p = os.path.join(p, st)
+            p = os.path.join(p, f)
         elif sys.platform == "win32":
             # get the exe directory and append the prefs file name
             p = os.path.join(sys.executable[:-len(os.path.basename(sys.executable))], f)
