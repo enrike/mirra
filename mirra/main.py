@@ -158,6 +158,7 @@ try:
             print "after app start"
             self.show()
             print "after self.show()"
+            
             sys.exit( QTWindow.qapp.exec_() )
             
 except ImportError:
@@ -287,7 +288,7 @@ class App(object):
     
     def start(self) : pass
     def end(self) : pass
-    def step(self) : pass
+    def step(self) : self.window.close()
     def render(self) : pass
     
     def mouseDown(self, x,y) : pass
