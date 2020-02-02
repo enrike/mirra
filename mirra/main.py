@@ -66,28 +66,23 @@ class Window(object):
 
 ## QtWindow #####################################      
 try:
-    from PyQt4 import QtCore, QtGui, QtOpenGL
+    from PyQt5 import QtCore, QtGui, QtOpenGL, QtWidgets
     from OpenGL.GL import *
-##from PyQt5 import QtCore, QtGui#, QtOpenGL
-##from PyQt5.QtWidgets import QOpenGLWidget, QMainWindow, QApplication
 
-    ##class MirraGLWidget(QOpenGLWidget):
     class MirraGLWidget(QtOpenGL.QGLWidget):
         def __init__(self, parent=None, main=None, size=(800,600)):
             super(MirraGLWidget, self).__init__(parent)
             self.main = main
             self.setFixedSize( size[0], size[1] ) ## crucial. the opengl area rules
-
-        def initializeGL(self):
-##            print "-------INITIALIZEGL-------"
-##            engine.gl = self.context().versionFunctions()
-##            engine.gl.initializeOpenGLFunctions()
-##            print dir(engine.gl)
-            engine.restart()
+##            self.setMinimumSize(size[0], size[1] )
+            
+        def initializeGL(self): engine.restart()
         def paintGL(self): self.main.render() ## called after updateGL
         def resizeGL(self, w,h):
             engine.size = w, h
             engine.restart()
+            # setup viewport, projection etc.:
+            glViewport(0, 0, w, h)
 
         def mousePressEvent(self, event): self.main.mousePressEvent(event)
         def mouseReleaseEvent(self, event): self.main.mouseReleaseEvent(event)
@@ -99,21 +94,25 @@ try:
         def dropEvent(self, event): print "dropEvent"
 
 
-    ##class QTWindow(Window, QMainWindow):
-    class QTWindow(Window, QtGui.QMainWindow):
 
-        qapp = QtGui.QApplication(sys.argv)
-    ##    qapp = QApplication(sys.argv)
+    class QTWindow(Window, QtWidgets.QMainWindow):
+
+        qapp = QtWidgets.QApplication(sys.argv)
         
         def __init__(self, app, frameclass, caption, pos, size, fullScreen, frameRate, smooth):
             Window.__init__(self, app, caption, pos, size, fullScreen, frameRate, smooth) #, mode) # env removed
-            QtGui.QMainWindow.__init__(self, None)
-    ##        QMainWindow.__init__(self, None)
+            QtWidgets.QMainWindow.__init__(self, None)
 
             if fullScreen: self.showFullScreen()
+            self.glWidget = MirraGLWidget(None, self, size)
 
-            self.glWidget = MirraGLWidget(None, self, size)       
-            self.setCentralWidget(self.glWidget)
+##            centralw = QtWidgets.QWidget()
+##            self.setCentralWidget(centralw)
+##            layout = QtWidgets.QHBoxLayout()
+##            layout.addWidget(self.glWidget)
+##            centralw.setLayout(layout)
+
+            self.setCentralWidget(self.glWidget) 
 
             self.setWindowTitle(caption)
             self.resize(size[0], size[1]) # size of the whole window
@@ -123,13 +122,8 @@ try:
 
             render_timer = QtCore.QTimer(self)
             render_timer.timeout.connect(self.glWidget.updateGL) ## prepares for paintGL
-    ##        timer.timeout.connect(self.glWidget.update)
             ms = (1./frameRate) * 1000 # FPS to msecs
             render_timer.start(ms)
-
-##            step_timer = QtCore.QTimer(self)
-##            step_timer.timeout.connect(self.app.step)
-##            step_timer.start(35)# fast
 
         def render(self):
             self.app.step()
@@ -160,7 +154,7 @@ try:
             print "after self.show()"
             
             sys.exit( QTWindow.qapp.exec_() )
-            
+        
 except ImportError:
     print '*'*10
     print 'Mirra > main.py : ImportError, could not import QT'
@@ -217,7 +211,7 @@ class App(object):
     def readSetUpPrefs(self) :
         ''' read only the ones related to windows setup. others wont work yet
         '''
-##        try :
+        try :
 ##        if sys.platform == 'darwin' and utilities.run_as_app() :
 ##            p = os.path.join(os.getcwd(), '../../../', f)
 ##        else :
@@ -234,21 +228,21 @@ class App(object):
 ##                print os.getcwd()
 ##                p = os.path.join(os.getcwd(), f)
 
-        abspath = utilities.getabspath(PREFSFILE)
+            abspath = utilities.getabspath(PREFSFILE)
 
-        print "reading preferences from%s" % PREFSFILE
+            print "reading preferences from %s" % PREFSFILE
 
-        if not abspath == '' :
-            raw = open(abspath, 'rU').read()
-            self.jsondata = json.loads(raw)
-            
-            self.frameRate = self.jsondata['setup']['framerate'] 
-            self.size = self.jsondata['setup']['size']  
-            self.pos = self.jsondata['setup']['pos']  
-            self.fullScreen = self.jsondata['setup']['fullscreen'] # if True you must pass your display resolution
+            if not abspath == '' :
+                raw = open(abspath, 'rU').read()
+                self.jsondata = json.loads(raw)
+                
+                self.frameRate = self.jsondata['setup']['framerate'] 
+                self.size = self.jsondata['setup']['size']  
+                self.pos = self.jsondata['setup']['pos']  
+                self.fullScreen = self.jsondata['setup']['fullscreen'] # if True you must pass your display resolution
 
-##        except :
-##            print 'warning : could not find a valid preference file  .........'
+        except :
+            print 'warning : could not find a valid preference file  .........'
 
 
     def __init__(self, smooth = 0, env = 'qt', caption = 'mirra', pos = (0,0), size = (640, 480),
@@ -270,8 +264,7 @@ class App(object):
         self.jsondata = None
     
         self.setUp() # get general window parameters from subclass
-        #self.readSetUpPrefs(PREFSFILE)
-        print self.frameRate
+        self.readSetUpPrefs()
 
         self.window = QTWindow(self, self.frameClass, self.caption, self.pos, self.size, self.fullScreen,
                                        self.frameRate, self.smooth)
@@ -287,8 +280,8 @@ class App(object):
     def setUp(self) : pass
     
     def start(self) : pass
-    def end(self) : pass
-    def step(self) : self.window.close()
+    def end(self) : self.window.close()
+    def step(self) : pass
     def render(self) : pass
     
     def mouseDown(self, x,y) : pass

@@ -90,7 +90,6 @@ def checkMouseIntersection( x, y, flag ) :
     hit = None  # reset first
     
     if selectedObj is None : # if none already selected check for intersections
-##        for obj in graphicsStack.stack[:][::-1] : # copy and reverse
         for obj in graphicsStack[:][::-1] : # copy and reverse
             if obj.interactiveState > 0 : #and obj.visible : # only the ones visible and listening to the mouse
                 if obj.intersects(x,y):
@@ -137,12 +136,11 @@ def checkMouseIntersection( x, y, flag ) :
 def start( s=(640,480), c=(1,1,1,0), t=0, sm=0 ) :
     """ inits main Engine instance's variables
     """
-    global size, trails, bgColor, q
+    global size, bgColor, q
 
     q = gluNewQuadric()
     
     size = s # w and h
-    trails = t # leave trails
 
     if len(c) == 4 :
         bgColor = c
@@ -152,21 +150,6 @@ def start( s=(640,480), c=(1,1,1,0), t=0, sm=0 ) :
     restart() # set opengl stuff
 
     glutInit([]) # avoid problem on Linux when drawing text --  ERROR:  Function <glutBitmapCharacter> called without first calling 'glutInit'.
-
-    
-
-##    def getSmooth(self): return __smooth
-##    def setSmooth( b):
-##        __smooth = b
-##        if b :
-##            glPushAttrib(GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT);
-##            glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-##            glEnable(GL_LINE_SMOOTH);
-##            glEnable(GL_BLEND);
-##            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-##        else :
-##            glPopAttrib()
-##    smooth = property(getSmooth, setSmooth)
 
 
 def restart() :
@@ -178,7 +161,6 @@ def restart() :
     glDepthFunc(GL_LEQUAL) # GL_LESS
     glEnable(GL_DEPTH_TEST) # enable depth buffer
 
-##    glClearDepth(1.0)
     glClearColor(bgColor[0], bgColor[1], bgColor[2], 0) # bg color, no blend
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # clear color and depth buffer
     
@@ -189,60 +171,28 @@ def restart() :
     glLoadIdentity()                # load identity matrix -> reset 3D world view
 
     glOrtho(0, size[0],  size[1], 0, 5000, 0)
-    
-##    if mode=='2D' :
-##        # set proyection to screen size to allow 1:1 mapping and (0,0) to be on left bottom
-##        glOrtho(0, size[0],  size[1], 0, 5000, 0) # glOrtho(left, right, bottom, top, zNear, zFar)
-##    else :# 3D
-##        # glFrustum(left, right, bottom, top, zNear, zFar)
-##        # gluPerspective(fovy, aspect, zNear, zFar) 
-####            glFrustum(0, size[0], size[1], 0, 5000, 1)
-##        gluPerspective(10, size[0]/float(size[1]), 5000, 0) 
         
     glMatrixMode(GL_MODELVIEW)  # back to modeling mode
     glLoadIdentity()  # again
 
     glEnable(GL_BLEND) # enable blend before render blended objects (all should be)
-##        glDepthMask(GL_FALSE) #!
+
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) # GL_ONE # GL_DST_ALPHA
+
     
-
-##def step() : pass
-##        for o in graphicsStack : 
-##            o.step()        
-
 def end():
     for o in graphicsStack : 
         o.end()
 
-def render() : #, fcount):
+def render() : 
     """ clears blackground and loops the stack passing position in list and reference to engine (self).
-        All shapes are now blended.
-        Note : two choices. 1- disable depth and render all in diff z position
-        2 - enable blend and render all in same z position.
-        need to make some tests
     """
-####        if smooth :
-####    glPushAttrib(GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT);
-##    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-##    glEnable(GL_LINE_SMOOTH);
-##    glEnable(GL_BLEND);
-##    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-    
-##    glClearDepth(1.0)
     glClearColor(bgColor[0], bgColor[1], bgColor[2], 1) 
-
-    if trails : # and fcount > 3 : # make sure it cleans buffer
-        glClear(GL_DEPTH_BUFFER_BIT) # leave trails
-    else: # GL_ACCUM_BUFFER_BIT | GL_STENCIL_BUFFER_BIT
-         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     for o in graphicsStack :
         o.render() 
         o.step()    
-
-##        if smooth :
-##    glPopAttrib()
             
 
 
