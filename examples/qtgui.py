@@ -1,3 +1,4 @@
+from __future__ import print_function
 from PyQt4 import QtCore, QtGui
 
 
@@ -19,7 +20,7 @@ def do(win):
 
 def openFile():
     filename = QtGui.QFileDialog.getOpenFileName(qtwin, 'OpenFile', "./", "text files (*.txt)")
-    print filename
+    print(filename)
 
 
 

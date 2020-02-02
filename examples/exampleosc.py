@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 from mirra import graphics
 from mirra import main
 from mirra import utilities
@@ -46,7 +47,7 @@ class MirraApp(main.App):
         """
         osc.sendMsg("/mouseloc", (x,y)) # default sends to localhost ip '127.0.0.1' and port 9000
 ##        osc.sendMsg("/mouseloc", (x,y), "81.23.103.123", 67243)
-        print "trying to send osc to localhost on port 9000"
+        print("trying to send osc to localhost on port 9000")
 
 
 
@@ -54,9 +55,9 @@ class MirraApp(main.App):
         """deals with "/print" tagged OSC addresses because it has been
             binded in the addressmanager to that particular tag
         """
-        print "printing in the squSize function ", msg
-        print "the oscaddress is ", msg[0][0]
-        print "the value is ", msg[0][2]
+        print("printing in the squSize function ", msg)
+        print("the oscaddress is ", msg[0][0])
+        print("the value is ", msg[0][2])
 
         if msg[0][2] > 0 : # if positive
             self.squ.width = msg[0][2] # change squ size to match incomming value

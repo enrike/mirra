@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from mirra import main
 from mirra.graphics import *
 from mirra import utilities
@@ -35,7 +36,7 @@ class MirraApp(main.App):
             self.whatever = self.jsondata['whateverprop']
 
         except :
-            print 'warning : could not find a valid preference file  .........'
+            print('warning : could not find a valid preference file  .........')
 
 
 

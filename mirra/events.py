@@ -1,4 +1,5 @@
-import engine 
+from __future__ import absolute_import
+from . import engine 
 
 class EventListener:
     """ describes the basic events and props that we will modify and use

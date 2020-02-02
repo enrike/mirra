@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
 # MUST put this is you are using pyopengl 3 and manually copy the eggs to the dist/lib folder
+from __future__ import print_function
 import sys, os
-print 'inserting eggs path for py2exe'
+print('inserting eggs path for py2exe')
 # need to manually do this for now. used when running as exe. crap, i know ...
 sys.path.insert(0, os.path.join(sys.prefix, "PyOpenGL-3.0.0a6-py2.5.egg"))
 sys.path.insert(0, os.path.join(sys.prefix, "setuptools-0.6c6-py2.5.egg"))

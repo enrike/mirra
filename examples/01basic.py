@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from mirra import main
 from mirra.graphics import *
 from mirra.utilities import *
@@ -27,7 +28,7 @@ class MirraApp(main.App):
         """ First thing to happen after the instance has been initalisiated
             good place to instanciate classes and init stuff
         """
-        print 'MirraTemplate is starting'
+        print('MirraTemplate is starting')
         self.r = Rect(100,100, 1 ,50, 50, color=(0.5,0,0,0.6))
         self.c = Circle(300,100,1,50, stroke=3, color=(0.8,0,0.8,1))
         

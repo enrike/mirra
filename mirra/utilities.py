@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 from math import * # local binding should be faster
 import random
@@ -27,7 +28,7 @@ def getabspath(f=''):
         p = os.path.join(os.getcwd(), f)
 
     if not os.path.isfile( p ) :
-        print "file does not exist", p
+        print("file does not exist", p)
 
     return p
 
@@ -40,7 +41,7 @@ def path(res = '') :
     if os.path.isfile(p) or os.path.isfile(p) :
         return p
     else :
-        print '%s not a valid resource'%res
+        print('%s not a valid resource'%res)
         return ''
 
 def get_cwd() :
@@ -96,7 +97,7 @@ def randint(min, max) :
         max <= min
     except:
         max = min+1
-        print 'utilities.randint() error : min was bigger than max' # avoid error
+        print('utilities.randint() error : min was bigger than max') # avoid error
     return seed.randint(min, max)
 
 def random() :
@@ -533,4 +534,4 @@ class Fps:
         lapse = Fps.time.time() - self.t # how long did it take to do current frame?
         self.t = Fps.time.time() # update before returning
         if lapse == 0 : pass # avoid dividing by 0
-        print 1/lapse
+        print(1/lapse)

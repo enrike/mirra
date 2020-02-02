@@ -1,5 +1,7 @@
 """ graphics module of Mirra. www.ixi-software.net
 """
+from __future__ import print_function
+from __future__ import absolute_import
 import sys, os
 
 try :
@@ -8,16 +10,16 @@ try :
 ##    from OpenGL.GL import *
 except ImportError:
     import_error = 'pyOpenGL'
-    print '*'*10
-    print 'Mirra > graphics.py : ImportError, could not import %s . It must be installed in your system to run Mirra' % (import_error)
-    print '*'*10
+    print('*'*10)
+    print('Mirra > graphics.py : ImportError, could not import %s . It must be installed in your system to run Mirra' % (import_error))
+    print('*'*10)
     import sys
     sys.exit() # quit
 
 
-from utilities import * # collision detection, etc...
+from .utilities import * # collision detection, etc...
 
-import engine 
+from . import engine 
 
 
 
