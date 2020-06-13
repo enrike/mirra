@@ -2,14 +2,16 @@
 """  Mirra : 2D pyOpenGL graphic engine by www.ixi-software.net
     for detailed info check the documentation in the main folder
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 try: # optimise with psyco if possible
     import psyco
-    print "psyco found. optimising ..."
+    print("psyco found. optimising ...")
 ##    psyco.log()
     psyco.profile()
 except ImportError:
-    print "no psyco found in your system. Psyco can improve Python's performance"
+    print("no psyco found in your system. Psyco can improve Python's performance")
 
 
 import sys, os, json
@@ -24,8 +26,8 @@ if sys.platform == 'win32' :
 from mirra import graphics
 from mirra import events
 
-import utilities # for the Audio class
-import engine
+from . import utilities # for the Audio class
+from . import engine
 
 
 
@@ -89,9 +91,9 @@ try:
         def mouseMoveEvent(self, event): self.main.mouseMoveEvent(event)
         def keyPressEvent(self,event): self.main.keyPressEvent(event)
 
-        def dragMoveEvent(self, event): print "dragMoveEvent"
-        def mouseGrabber(self, event): print "mouseGrabber"
-        def dropEvent(self, event): print "dropEvent"
+        def dragMoveEvent(self, event): print("dragMoveEvent")
+        def mouseGrabber(self, event): print("mouseGrabber")
+        def dropEvent(self, event): print("dropEvent")
 
 
 
@@ -136,29 +138,29 @@ try:
         def keyPressEvent(self, e): self.events.keyDown(e.key())
         def keyReleaseEvent(self, e): self.events.keyUp(e.key())
 
-        def dragMoveEvent(self, e): print "dragMoveEvent"
-        def mouseGrabber(self, e): print "mouseGrabber"
-        def dropEvent(self, e): print "dropEvent"
+        def dragMoveEvent(self, e): print("dragMoveEvent")
+        def mouseGrabber(self, e): print("mouseGrabber")
+        def dropEvent(self, e): print("dropEvent")
         
         def closeEvent(self, e):
-            print "quiting..."
+            print("quiting...")
             self.app.end() # just before exiting
-            print "app end..."
+            print("app end...")
             engine.end()
-            print "engine end..."
+            print("engine end...")
             
         def mainWindowLoop(self):
             self.app.start()
-            print "after app start"
+            print("after app start")
             self.show()
-            print "after self.show()"
+            print("after self.show()")
             
             sys.exit( QTWindow.qapp.exec_() )
         
 except ImportError:
-    print '*'*10
-    print 'Mirra > main.py : ImportError, could not import QT'
-    print '*'*10
+    print('*'*10)
+    print('Mirra > main.py : ImportError, could not import QT')
+    print('*'*10)
 
 
   
@@ -206,7 +208,7 @@ class App(object):
             self.mouseVisible = self.jsondata['setup']['mouseVisible']
             self.bgColor = self.jsondata['setup']['bgColor']
         except :
-            print 'error, something wrong with jsondata please check : %s' % self.jsondata
+            print('error, something wrong with jsondata please check : %s' % self.jsondata)
 
     def readSetUpPrefs(self) :
         ''' read only the ones related to windows setup. others wont work yet
@@ -230,7 +232,7 @@ class App(object):
 
             abspath = utilities.getabspath(PREFSFILE)
 
-            print "reading preferences from %s" % PREFSFILE
+            print("reading preferences from %s" % PREFSFILE)
 
             if not abspath == '' :
                 raw = open(abspath, 'rU').read()
@@ -242,7 +244,7 @@ class App(object):
                 self.fullScreen = self.jsondata['setup']['fullscreen'] # if True you must pass your display resolution
 
         except :
-            print 'warning : could not find a valid preference file  .........'
+            print('warning : could not find a valid preference file  .........')
 
 
     def __init__(self, smooth = 0, env = 'qt', caption = 'mirra', pos = (0,0), size = (640, 480),

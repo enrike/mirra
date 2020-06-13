@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from mirra import main
 from mirra.graphics import *
 from mirra import utilities
@@ -40,28 +41,28 @@ class MirraApp(main.App):
       
     # other general app methods defined below
     # If no object trap this events then this methods are called
-    def mouseDown(self, x,y):       print "mouseDown", x,y
-    def mouseUp(self, x,y):         print "mouseUp", x,y
-    def mouseDragged(self, x,y):    print "mouseDragged", x,y
-    def rightMouseDown(self, x,y):  print "rightMouseDown", x,y
-    def rightMouseUp(self, x,y):    print "rightMouseUp", x,y
-    def keyDown(self, key):         print "keyDown", key
-    def keyUp(self, key):           print "keyUp", key
+    def mouseDown(self, x,y):       print("mouseDown", x,y)
+    def mouseUp(self, x,y):         print("mouseUp", x,y)
+    def mouseDragged(self, x,y):    print("mouseDragged", x,y)
+    def rightMouseDown(self, x,y):  print("rightMouseDown", x,y)
+    def rightMouseUp(self, x,y):    print("rightMouseUp", x,y)
+    def keyDown(self, key):         print("keyDown", key)
+    def keyUp(self, key):           print("keyUp", key)
 
     def joyAxisMotion(self, joystick, index, value): 
-       print "Moved axis %d on joystick %d by: %s" % (index, joystick, value)
+       print("Moved axis %d on joystick %d by: %s" % (index, joystick, value))
 
     def joyBallMotion(self, joystick, index, value):
-        print "Moved ball %d on joystick %d by: %s" % (index, joystick, value)
+        print("Moved ball %d on joystick %d by: %s" % (index, joystick, value))
 
     def joyHatMotion(self, joystick, index, value):
-        print "Moved hat %d on joystick %d by: %s" % (index, joystick, value)
+        print("Moved hat %d on joystick %d by: %s" % (index, joystick, value))
 
     def joyButtonDown(self, joystick, button):
-        print "down button %d on joystick %d" % (button, joystick)
+        print("down button %d on joystick %d" % (button, joystick))
 
     def joyButtonUp(self, joystick, button):
-        print "up button %d on joystick %d" % (button, joystick)
+        print("up button %d on joystick %d" % (button, joystick))
 
 
 

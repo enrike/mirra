@@ -15,19 +15,20 @@
     License along with this library; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 """
+from __future__ import absolute_import
 
 
 __author__ = "www.ixi-audio.net"
 __license__ = "GNU Lesser General Public License"
 __all__ = ["graphics",  "utilities", "events", "main",  "export", "tools", "engine"]
 
-from graphics import *
-from utilities import *
-from events import *
-from main import *
-from export import *
-from tools import *
-from engine import *
+from .graphics import *
+from .utilities import *
+from .events import *
+from .main import *
+from .export import *
+from .tools import *
+from .engine import *
 
 
 

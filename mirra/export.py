@@ -2,6 +2,8 @@
 
 
 ##########################################################
+from __future__ import print_function
+from __future__ import absolute_import
 main_file_name = '' # main file
 packages = [] # any packages you might have created
 icon_path = '' # on mac the icon file type is .icns on win is .ico
@@ -40,12 +42,12 @@ if sys.platform == 'win32':
     try :
         import py2exe
     except ImportError:
-        print 'no py2app installed in your system'
+        print('no py2app installed in your system')
 elif sys.platform == 'darwin':
     try :
         import py2app as ppp
     except ImportError:
-        print 'no py2app installed in your system'
+        print('no py2app installed in your system')
 
 
 
@@ -57,13 +59,13 @@ def pack( mainFile='', extraPackages=[], extraFiles=[], iconPath='', winconsole=
     """
     if sys.platform != 'win32' :
         if os.uname()[0] == 'Linux' :
-            print 'no need to pack on Linux'
+            print('no need to pack on Linux')
             return # OFF
 ##        elif os.uname()[0] == 'Darwin' :
 ##            os.chdir(os.path.dirname(mainFile)) # change to current file directory on mac
     
         
-    import utilities
+    from . import utilities
     if utilities.run_as_app() : return # running as exe > escape!
     
     global main_file_name, packages, icon_path # declare them!!
@@ -94,19 +96,19 @@ def recursive_copy(src='', dst='', foldBlackList=(),extBlackList=()):
 def proofcheck(dic):
     # now check for errors in user files
     if not os.path.isfile(main_file_name) : 
-        print 'error : main file %s does not seem to exist' % main_file_name
+        print('error : main file %s does not seem to exist' % main_file_name)
         raise sys.exit() # OFF
 
     if len(icon_path) == 0 or not os.path.isfile(icon_path) :
-        print 'error : icon %s does not seem to exist' % icon_path
+        print('error : icon %s does not seem to exist' % icon_path)
         if sys.platform == 'win32':
             dic[0].pop('icon_resources') # this is why we do this after declaring windows
         else :
             try :
                 dic['py2app'].pop('iconfile')
             except KeyError:
-                print 'no icon specified'
-    print ".. done checking user's files .........."
+                print('no icon specified')
+    print(".. done checking user's files ..........")
 
     return dic
 
@@ -116,7 +118,7 @@ def proofcheck(dic):
 def packit( winconsole=0 ):
     global main_file_name, packages, icon_path, extra_files
 
-    print '** exporting process started **'
+    print('** exporting process started **')
 
     # If run without args (doubleclick on win), build executable in quiet mode.
     if len(sys.argv) == 1:
@@ -134,7 +136,7 @@ def packit( winconsole=0 ):
     try :
         main_file_name
     except NameError :
-        print 'you did not specifly any main file in first argument for export.pack()'
+        print('you did not specifly any main file in first argument for export.pack()')
         raise sys.exit() # off
 
     try :
@@ -171,10 +173,10 @@ def packit( winconsole=0 ):
                     i = extra_files.index(sub)
                     z = extra_files[i][1].index(res)
                     extra_files[i][1].pop(z) # remove invalid file addresses
-                    print 'invalid path %s especified, ignoring'%res
+                    print('invalid path %s especified, ignoring'%res)
         else :
             extra_files.pop(sub) # remove empty dirs
-            print 'empty directory %s especified, ignoring'%res
+            print('empty directory %s especified, ignoring'%res)
 
     # make sure mirra is included
     if not 'mirra' in packages : packages.append('mirra')
@@ -223,13 +225,13 @@ def packit( winconsole=0 ):
         # now manually copy /site-packages/OpenGL to /dist folder
         try :
             assert(os.path.isdir(pathtopengl)), 'could not find Python\Lib\site-packages\OpenGL directory'
-            print '\n' ; print 'copying OpenGL folder to dist, this might take some time ...'
+            print('\n') ; print('copying OpenGL folder to dist, this might take some time ...')
             recursive_copy(pathtopengl, os.path.join(dist, 'OpenGL'),
                 ('Demo', 'doc', 'Tk', 'WGL', 'scripts'), ('.pyo', '.pyc'))
         except : 
-            print 'error : could not find Python\Lib\site-packages\OpenGL directory, trying to find the egg...'
+            print('error : could not find Python\Lib\site-packages\OpenGL directory, trying to find the egg...')
             packsfolder = os.path.join(sys.exec_prefix, 'Lib\site-packages' )
-            print 'you must manually copy the PyOpenGL and setuptools eggs to dis/lib and insert then into the path in your script ...'
+            print('you must manually copy the PyOpenGL and setuptools eggs to dis/lib and insert then into the path in your script ...')
             # here i need to find the .eggs for PyOpenGL and setuptools
             # and copy them into the /Lib folder
 ##            for c, d, f in os.walk( packsfolder ):
@@ -245,11 +247,11 @@ def packit( winconsole=0 ):
 
     ### MAC ######################
     elif sys.platform == 'darwin':
-        print 'deleting previous dist ...'
+        print('deleting previous dist ...')
         try :
             shutil.rmtree(os.path.join(os.getcwd(), 'dist'))
         except :
-            print 'no previous dist to delete'
+            print('no previous dist to delete')
     ##  files.append(('../Frameworks', ['/usr/local/lib/libwx_mac-2.4.0.rsrc'])) # for wx
 
         options = dict( py2app = dict(
@@ -278,11 +280,11 @@ def packit( winconsole=0 ):
     # FOR both mac and win now :
 
     # now delete build dir for all platforms
-    print 'deleting build dir'
+    print('deleting build dir')
     shutil.rmtree(os.path.join(os.getcwd(), 'build')) # just get rid of the old version
 
-    print '\n'; print 'Looks like everyting went right so you should have your app in the dist folder'#%os.path.basename(main_file_name)
-    print 'Do you want to quit this console or continue launching %s?' % os.path.basename(main_file_name)
+    print('\n'); print('Looks like everyting went right so you should have your app in the dist folder')#%os.path.basename(main_file_name)
+    print('Do you want to quit this console or continue launching %s?' % os.path.basename(main_file_name))
     a = raw_input("yes or no to quit? : ")
     if a == 'yes' or a == 'y':
         raise sys.exit() # off

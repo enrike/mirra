@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from mirra import main
 from mirra.graphics import *
 from mirra import utilities
@@ -26,7 +27,7 @@ class MirraApp(main.App) :
         """ First thing to happen after the instance has been initalisiated
             good place to instanciate classes and init stuff
         """
-        print 'MirraTemplate is starting'
+        print('MirraTemplate is starting')
         Line((0,0), (300,300), 1) # just creating a line
 
 
@@ -54,7 +55,7 @@ class MirraApp(main.App) :
     def end(self) :
         """ just before the app is killed
         """
-        print 'MirraTemplate is quiting'
+        print('MirraTemplate is quiting')
 
 
 

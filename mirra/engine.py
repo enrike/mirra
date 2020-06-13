@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 
 import sys, os
 
@@ -5,7 +6,7 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from OpenGL.GL import *
 
-from utilities import *
+from .utilities import *
 
 
 
@@ -214,7 +215,7 @@ def drawText( text='', x=0, y=0, z=0, font="helvetica", size=10, color=(0,0,0,1)
     glRasterPos3f(x, y, -z)
 
     current = GLUT_BITMAP_8_BY_13
-    if bitmapFonts.has_key(font): # this type
+    if font in bitmapFonts: # this type
         for s in bitmapFonts[font]:
             if s[1] == size : # this size
                 current = s[0] # get the font

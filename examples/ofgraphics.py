@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from mirra import main
 from mirra.graphics import *
 from mirra import utilities
@@ -26,7 +27,7 @@ class MirraApp(main.App):
         """ First thing to happen after the instance has been initalisiated
             good place to instanciate classes and init stuff
         """
-        print 'MirraTemplate is starting'
+        print('MirraTemplate is starting')
         self.rotation = 0
 ##        glBlendFunc(GL_SRC_COLOR, GL_ONE)
         

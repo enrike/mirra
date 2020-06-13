@@ -30,7 +30,7 @@ class MirraApp(main.App) :
         self.pos = 100,100 # window top left location
         self.fullScreen = 0 # if fullScreen is on it will overwrite your pos and size to match the display's resolution
         self.frameRate = 15 # set refresh framerate
-
+    def step(self):pass
 
     def start(self) :
         """ First thing to happen after the instance has been initalisiated
