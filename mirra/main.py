@@ -68,10 +68,10 @@ class Window(object):
 
 ## QtWindow #####################################      
 try:
-    from PyQt5 import QtCore, QtGui, QtOpenGL, QtWidgets
+    from PyQt6 import QtCore, QtGui, QtWidgets, QtOpenGLWidgets
     from OpenGL.GL import *
 
-    class MirraGLWidget(QtOpenGL.QGLWidget):
+    class MirraGLWidget(QtOpenGLWidgets.QOpenGLWidget):
         def __init__(self, parent=None, main=None, size=(800,600)):
             super(MirraGLWidget, self).__init__(parent)
             self.main = main
@@ -80,7 +80,7 @@ try:
             
         def initializeGL(self): engine.restart()
         def paintGL(self): self.main.render() ## called after updateGL
-        def resizeGL(self, w,h):
+        def resizeGL(self, w,h): 
             engine.size = w, h
             engine.restart()
             # setup viewport, projection etc.:
@@ -123,8 +123,8 @@ try:
             engine.start( size ) # this is overwritten later by the resize
 
             render_timer = QtCore.QTimer(self)
-            render_timer.timeout.connect(self.glWidget.updateGL) ## prepares for paintGL
-            ms = (1./frameRate) * 1000 # FPS to msecs
+            render_timer.timeout.connect(self.glWidget.paintGL) ## prepares for paintGL
+            ms = int(1./frameRate) * 1000 # FPS to msecs
             render_timer.start(ms)
 
         def render(self):
@@ -132,9 +132,12 @@ try:
             engine.render()
             self.app.render()
 
-        def mousePressEvent(self, e): self.events.mousePress(e.x(), e.y(), e.button())
-        def mouseReleaseEvent(self, e): self.events.mouseRelease(e.x(), e.y(), e.button())
-        def mouseMoveEvent(self, e): self.events.mouseDrag(e.x(), e.y())
+        def mousePressEvent(self, e):
+            self.events.mousePress(e.position().x(), e.position().y(), e.button())
+        def mouseReleaseEvent(self, e):
+            self.events.mouseRelease(e.position().x(), e.position().y(), e.button())
+        def mouseMoveEvent(self, e):
+            self.events.mouseDrag(e.position().x(), e.position().y())
         def keyPressEvent(self, e): self.events.keyDown(e.key())
         def keyReleaseEvent(self, e): self.events.keyUp(e.key())
 
@@ -155,7 +158,7 @@ try:
             self.show()
             print("after self.show()")
             
-            sys.exit( QTWindow.qapp.exec_() )
+            sys.exit( QTWindow.qapp.exec() )
         
 except ImportError:
     print('*'*10)

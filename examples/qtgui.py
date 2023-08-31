@@ -1,5 +1,5 @@
 from __future__ import print_function
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets, QtGui
 
 
 app = None
@@ -12,14 +12,15 @@ def do(win):
 
     # FILE
     fm = win.menuBar().addMenu("&File")
-    fm.addAction(
-        QtWidgets.QAction("O&pen", win, shortcut="Ctrl+O", triggered=openFile)
-    )
+    action = QtGui.QAction('Import mail', win)
+    action.triggered.connect(openFile)
+    fm.addAction(action)
 
 
 
 def openFile():
-    filename = QtWidgets.QFileDialog.getOpenFileName(qtwin, 'OpenFile', "./", "text files (*.txt)")
+    print("opening dialogue window")
+    filename = QtWidgets.QFileDialog.getOpenFileName(qtwin, "OpenFile", "./", "text files (*.txt)")
     print(filename)
 
 
