@@ -79,7 +79,8 @@ try:
 ##            self.setMinimumSize(size[0], size[1] )
             
         def initializeGL(self): engine.restart()
-        def paintGL(self): self.main.render() ## called after updateGL
+        def paintGL(self):
+            self.main.render() ## called after updateGL
         def resizeGL(self, w,h): 
             engine.size = w, h
             engine.restart()
@@ -123,9 +124,9 @@ try:
             engine.start( size ) # this is overwritten later by the resize
 
             render_timer = QtCore.QTimer(self)
-            render_timer.timeout.connect(self.glWidget.paintGL) ## prepares for paintGL
-            ms = int(1./frameRate) * 1000 # FPS to msecs
-            render_timer.start(ms)
+            render_timer.timeout.connect(self.glWidget.update) ## prepares for paintGL
+            ms = (1./frameRate) * 1000 # FPS to msecs
+            render_timer.start(int(ms))
 
         def render(self):
             self.app.step()
@@ -155,6 +156,7 @@ try:
         def mainWindowLoop(self):
             self.app.start()
             print("after app start")
+            self.glWidget.show()
             self.show()
             print("after self.show()")
             
