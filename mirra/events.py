@@ -33,7 +33,6 @@ class EventListener:
         if engine.checkMouseIntersection(x,y, "mouseDragged") == None: # << in case it was not defined avoid error. same below
             self.app.mouseDragged(x,y)
 
-
     def mouseMove(self,e):
         self.mouseLoc = e.x(), e.y()
 

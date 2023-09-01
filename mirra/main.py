@@ -77,6 +77,7 @@ try:
             self.main = main
             self.setFixedSize( size[0], size[1] ) ## crucial. the opengl area rules
 ##            self.setMinimumSize(size[0], size[1] )
+            self.setMouseTracking(True) # MUST by pyqt6 otherwise only when mouse is down
             
         def initializeGL(self): engine.restart()
         def paintGL(self):
@@ -134,9 +135,9 @@ try:
             self.app.render()
 
         def mousePressEvent(self, e):
-            self.events.mousePress(e.position().x(), e.position().y(), e.button())
+            self.events.mousePress(e.position().x(), e.position().y(), e.button().value)
         def mouseReleaseEvent(self, e):
-            self.events.mouseRelease(e.position().x(), e.position().y(), e.button())
+            self.events.mouseRelease(e.position().x(), e.position().y(), e.button().value)
         def mouseMoveEvent(self, e):
             self.events.mouseDrag(e.position().x(), e.position().y())
         def keyPressEvent(self, e): self.events.keyDown(e.key())
