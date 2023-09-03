@@ -185,6 +185,10 @@ def end():
     for o in graphicsStack : 
         o.end()
 
+def firstrender():
+    for o in graphicsStack :
+        o.firstrender() 
+
 def render() : 
     """ clears blackground and loops the stack passing position in list and reference to engine (self).
     """

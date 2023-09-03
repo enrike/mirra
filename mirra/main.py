@@ -107,6 +107,8 @@ try:
             Window.__init__(self, app, caption, pos, size, fullScreen, frameRate, smooth) #, mode) # env removed
             QtWidgets.QMainWindow.__init__(self, None)
 
+            self.firstrenderflag = 1
+
             if fullScreen: self.showFullScreen()
             self.glWidget = MirraGLWidget(None, self, size)
 
@@ -131,7 +133,12 @@ try:
 
         def render(self):
             self.app.step()
+            if self.firstrenderflag:
+               engine.firstrender() 
             engine.render()
+            if self.firstrenderflag:
+                self.app.firstrender()
+                self.firstrenderflag = 0 #done
             self.app.render()
 
         def mousePressEvent(self, e):
@@ -290,6 +297,7 @@ class App(object):
     def start(self) : pass
     def end(self) : self.window.close()
     def step(self) : pass
+    def firstrender(self): pass
     def render(self) : pass
     
     def mouseDown(self, x,y) : pass

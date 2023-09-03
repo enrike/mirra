@@ -146,6 +146,8 @@ class Base(object):
                 if v[1] !=  0 : b = n
                 self.texCoord[i] = a,b
 
+    def firstrender(self): pass
+
     def render(self) : #, engine):
         """ render's the instance using engines's drawing functions. Defined for each different shape.
             This function is automaticly called by the Engine instance. 
